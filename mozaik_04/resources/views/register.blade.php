@@ -1,12 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Register - Events</title>
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -26,9 +30,10 @@
                                         <div class="form-outline"> <input type="email" id="registerEmail" class="form-control form-control-lg" /> <label class="form-label" for="registerEmail">Email address</label> </div>
                                         <div class="form-outline"> <input type="password" id="registerPassword" class="form-control form-control-lg" /> <label class="form-label" for="registerPassword">Password</label> </div>
                                         <div class="form-outline"> <input type="password" id="registerPasswordAgain" class="form-control form-control-lg" /> <label class="form-label" for="registerPasswordAgain">Repeat your password</label> </div>
-                                        <div class="pt-1 mb-4"> <button class="btn btn-dark btn-lg btn-block" type="button">Register</button> </div>
+                                        <div class="pt-1 mb-4"> <button id="register" class="btn btn-dark btn-lg btn-block" type="button">Register</button> </div>
                                         <p style="color: #393f81;">You have an account? <a href="/" style="color: #393f81;">Login here</a></p>
                                     </form>
+                                    <div id="message"></div>
                                 </div>
                             </div>
                         </div>
@@ -37,6 +42,6 @@
             </div>
         </div>
     </section>
+    <script src="register.js"></script>
 </body>
-
 </html>

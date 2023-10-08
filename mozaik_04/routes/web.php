@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,6 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+
+Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
