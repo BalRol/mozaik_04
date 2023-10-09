@@ -17,7 +17,6 @@ class UserController extends Controller
           $name = $request->input('name');
           $email = $request->input('email');
           $pwd = $request->input('pwd');
-          $pwd_again = $request->input('pwd_again');
 
           if($name == ""){
               return response()->json(['message' => 1], 200);
@@ -25,13 +24,7 @@ class UserController extends Controller
               return response()->json(['message' => 2], 200);
           }elseif(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
               return response()->json(['message' => 6], 200);
-          }elseif($pwd == ""){
-              return response()->json(['message' => 3], 200);
-          }elseif($pwd_again == ""){
-              return response()->json(['message' => 4], 200);
-          }elseif($pwd_again != $pwd){
-              return response()->json(['message' => 5], 200);
-          }elseif($pwd == $pwd_again){
+          }else{
               DB::table('user')->insert([
                   'username' => $name,
                   'email' => $email,
