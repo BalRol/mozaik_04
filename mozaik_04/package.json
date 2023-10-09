@@ -9,5 +9,12 @@
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.8.0",
         "vite": "^4.0.0"
+<<<<<<< Updated upstream
+=======
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "crypto-js": "^4.1.1"
+>>>>>>> Stashed changes
     }
 }
