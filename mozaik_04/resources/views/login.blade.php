@@ -2,11 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Events</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>Login - Events</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
 </head>
 
 <body>
@@ -22,9 +27,9 @@
                                     <form>
                                         <div class="d-flex align-items-center mb-3 pb-1"> <img alt="logo" class="img-fluid" src="bird.png"></img> <span class="h1 fw-bold mb-0">Events</span> </div>
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
-                                        <div class="form-outline mb-4"> <input type="email" id="form2Example17" class="form-control form-control-lg" /> <label class="form-label" for="form2Example17">Email address</label> </div>
-                                        <div class="form-outline mb-4"> <input type="password" id="form2Example27" class="form-control form-control-lg" /> <label class="form-label" for="form2Example27">Password</label> </div>
-                                        <div class="pt-1 mb-4"> <button class="btn btn-dark btn-lg btn-block" type="button">Login</button> </div>
+                                        <div class="form-outline mb-4"> <input type="email" id="email" name="email" class="form-control form-control-lg" /> <label class="form-label" for="form2Example17">Email address</label> </div>
+                                        <div class="form-outline mb-4"> <input type="password" id="password" name="password" class="form-control form-control-lg" /> <label class="form-label" for="form2Example27">Password</label> </div>
+                                        <div class="pt-1 mb-4"> <button class="btn btn-dark btn-lg btn-block" id="login" type="button">Login</button> </div>
                                         <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="register" style="color: #393f81;">Register here</a></p>
                                     </form>
                                 </div>
@@ -35,6 +40,7 @@
             </div>
         </div>
     </section>
+    <script src="login.js"></script>
 </body>
 
 </html>

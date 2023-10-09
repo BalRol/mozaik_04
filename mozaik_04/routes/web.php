@@ -25,3 +25,5 @@ Route::get('/register', function () {
 
 
 Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
+
+Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
