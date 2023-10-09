@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -18,16 +19,25 @@ class UserController extends Controller
           $pwd = $request->input('pwd');
           $pwd_again = $request->input('pwd_again');
 
-          $user = new User;
-          $user->name = $name;
-          $user->email = $email;
-          $user->pwd = $pwd;
-          if($pwd == $pwd_again){
-              $user->save();
-              return response()->json(['message' => 'Sikeres'], 200);
-          }
-          else{
-             return response()->json(['message' => 'Sikertelen'], 500);
+          if($name == ""){
+              return response()->json(['message' => 1], 200);
+          }elseif($email == ""){
+              return response()->json(['message' => 2], 200);
+          }elseif(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
+              return response()->json(['message' => 6], 200);
+          }elseif($pwd == ""){
+              return response()->json(['message' => 3], 200);
+          }elseif($pwd_again == ""){
+              return response()->json(['message' => 4], 200);
+          }elseif($pwd_again != $pwd){
+              return response()->json(['message' => 5], 200);
+          }elseif($pwd == $pwd_again){
+              DB::table('user')->insert([
+                  'username' => $name,
+                  'email' => $email,
+                  'password' => bcrypt($pwd),
+              ]);
+              return response()->json(['message' => 0], 200);
           }
 
       }

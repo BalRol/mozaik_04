@@ -14,11 +14,29 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function () {
-                $('#message').append(`<?php swal("Sikeres regisztráció!", "", "success"); ?>`);
+            success: function (response) {
+                if(response.message === 0) {
+                    swal("Registration success!", "", "success");
+                    $('#registerUsername').val('');
+                    $('#registerEmail').val('');
+                    $('#registerPassword').val('');
+                    $('#registerPasswordAgain').val('');
+                }else if(response.message === 1){
+                    swal("Registration failed!", "Username empty", "error");
+                }else if(response.message === 2){
+                    swal("Registration failed!", "Email empty", "error");
+                }else if(response.message === 3){
+                    swal("Registration failed!", "Password empty", "error");
+                }else if(response.message === 4){
+                    swal("Registration failed!", "Password confirmation empty", "error");
+                }else if(response.message === 5){
+                    swal("Registration failed!", "The two passwords do not match", "error");
+                }else if(response.message === 6){
+                    swal("Registration failed!", "The email format not correct.\nCorrect format: test@example.com", "error");
+                }
             },
             error: function () {
-                $('#message').append(`<?php swal("Sikertelen regisztráció!", "", "error"); ?>`);
+                swal("Something went wrong", "Please try again later.", "error");
             }
         });
     })

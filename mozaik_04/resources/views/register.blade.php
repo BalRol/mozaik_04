@@ -26,10 +26,10 @@
                                     <form>
                                         <div class="d-flex align-items-center mb-1 pb-1"> <img alt="logo" class="img-fluid" src="bird.png"></img> <span class="h1 fw-bold mb-0">Events</span> </div>
                                         <h5 class="fw-normal " style="letter-spacing: 1px;">Register your account</h5>
-                                        <div class="form-outline"> <input type="username" id="registerUsername" class="form-control form-control-lg" /> <label class="form-label" for="registerUsername">Username</label> </div>
-                                        <div class="form-outline"> <input type="email" id="registerEmail" class="form-control form-control-lg" /> <label class="form-label" for="registerEmail">Email address</label> </div>
-                                        <div class="form-outline"> <input type="password" id="registerPassword" class="form-control form-control-lg" /> <label class="form-label" for="registerPassword">Password</label> </div>
-                                        <div class="form-outline"> <input type="password" id="registerPasswordAgain" class="form-control form-control-lg" /> <label class="form-label" for="registerPasswordAgain">Repeat your password</label> </div>
+                                        <div class="form-outline"> <input type="username" id="registerUsername" name="name" class="form-control form-control-lg" /> <label class="form-label" for="registerUsername">Username</label> </div>
+                                        <div class="form-outline"> <input type="email" id="registerEmail" name="email" class="form-control form-control-lg" /> <label class="form-label" for="registerEmail">Email address</label> </div>
+                                        <div class="form-outline"> <input type="password" id="registerPassword" name="password" class="form-control form-control-lg" /> <label class="form-label" for="registerPassword">Password</label> </div>
+                                        <div class="form-outline"> <input type="password" id="registerPasswordAgain" name="password_confirmation" class="form-control form-control-lg" /> <label class="form-label" for="registerPasswordAgain">Password confirmation</label> </div>
                                         <div class="pt-1 mb-4"> <button id="register" class="btn btn-dark btn-lg btn-block" type="button">Register</button> </div>
                                         <p style="color: #393f81;">You have an account? <a href="/" style="color: #393f81;">Login here</a></p>
                                     </form>
