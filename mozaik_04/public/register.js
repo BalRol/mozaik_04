@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $('#register').click(function() {
-        $pwd = $('#registerPassword').val();
-        $pwd_again = $('#registerPasswordAgain').val();
-        $go = true;
+        let $pwd = $('#registerPassword').val();
+        let $pwd_again = $('#registerPasswordAgain').val();
+        let $go = true;
         if($pwd !== $pwd_again){
             swal("Registration failed!", "The two passwords do not match", "error");
             $go = false;
@@ -13,10 +13,11 @@ $(document).ready(function() {
             swal("Registration failed!", "Password confirmation empty", "error");
             $go = false;
         }
+
         var registerAddParams = {
             name: $('#registerUsername').val(),
             email: $('#registerEmail').val(),
-            pwd: CryptoJS.MD5($pwd).toString(),
+            pwd: CryptoJS.SHA256($pwd).toString(),
         };
         if($go){
             $.ajax({
