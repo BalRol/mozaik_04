@@ -24,7 +24,12 @@ class UserController extends Controller
               return response()->json(['message' => 2], 200);
           }elseif(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
               return response()->json(['message' => 6], 200);
-          }else{
+          }elseif(DB::table('user')->where('username', $name)->exists()){
+              return response()->json(['message' => 7], 200);
+          }elseif(DB::table('user')->where('email', $email)->exists()){
+              return response()->json(['message' => 8], 200);
+          }
+          else{
               DB::table('user')->insert([
                   'username' => $name,
                   'email' => $email,

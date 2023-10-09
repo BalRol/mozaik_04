@@ -35,11 +35,15 @@ $(document).ready(function() {
                         $('#registerPassword').val('');
                         $('#registerPasswordAgain').val('');
                     }else if(response.message === 1){
-                        swal("Registration failed!", "Username empty", "error");
+                        swal("Registration failed!", "Username empty.", "error");
                     }else if(response.message === 2){
-                        swal("Registration failed!", "Email empty", "error");
+                        swal("Registration failed!", "Email empty.", "error");
                     }else if(response.message === 6){
                         swal("Registration failed!", "The email format not correct.\nCorrect format: test@example.com", "error");
+                    }else if(response.message === 7){
+                        swal("Registration failed!", "Username is alredy taken.", "error");
+                    }else if(response.message === 8){
+                        swal("Registration failed!", "Email is alredy taken.", "error");
                     }
                 },
                 error: function () {
