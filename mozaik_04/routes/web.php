@@ -24,6 +24,12 @@ Route::get('/register', function () {
 });
 
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+
+
 Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
 
 Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
