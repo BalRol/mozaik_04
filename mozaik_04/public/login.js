@@ -15,6 +15,7 @@ $(document).ready(function() {
             success: function (response) {
                 if(response.message === 10){
                     swal("Login success", "", "success");
+                    window.location.href = "/dashboard";
                 }
             },
             error: function () {
