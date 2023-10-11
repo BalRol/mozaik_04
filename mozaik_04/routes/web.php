@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/register', function () {
+    return view('register');
+});
+
+
+Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
+
+Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
