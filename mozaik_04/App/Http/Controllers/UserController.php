@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
+
 
 class UserController extends Controller
 {
@@ -17,6 +19,11 @@ class UserController extends Controller
                   ->orWhere('email', $email);
         })->first();
         if ($user && $pwd === $user->password) {
+            $cookieValue = $user->id; // Például a felhasználó azonosítóját használjuk sütiként
+            $minutes = 60 * 12; // A sütik élettartama (például 1 hét)
+
+            // Sütiket létrehozása
+            Cookie::queue('user', $cookieValue, $minutes);
             return response()->json(["message" => 10], 200);
         }
 
