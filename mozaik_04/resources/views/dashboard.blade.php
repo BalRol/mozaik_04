@@ -1,3 +1,11 @@
+<?php
+if (!isset($_COOKIE['user'])) {
+    header("Location: /");
+    exit;
+}
+
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,7 +36,7 @@
 
 </nav>
     <section style="background-color: #2C2C2C;">
-        <div class="container py-5 h-100">
+        <div class="container py-5">
             <div class="row d-flex justify-content-center align-items-center">
                 <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; " >
                     <div class="card-body">
