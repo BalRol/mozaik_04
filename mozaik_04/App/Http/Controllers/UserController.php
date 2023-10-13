@@ -10,6 +10,41 @@ use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
+    public function show(Request $request)
+    {
+        if ($request->hasCookie('user')) {
+            $userId = $request->cookie('user');
+            $user = User::find($userId);
+            return response()->json(["user" => $user], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+    }
+
+    public function update(Request $request){
+        $email = $request->input("email");
+        $name = $request->input("name");
+        $oldPassword = $request->input("oldPassword");
+        $newPassword = $request->input("newPassword");
+
+        if ($request->hasCookie('user')) {
+            $userId = $request->cookie('user');
+            $user = User::find($userId);
+            $user->username = $name;
+            $user->email = $email;
+            if($user->password === $oldPassword && $newPassword !== ""){$user->password = $newPassword;}
+            if ($request->hasFile('image')) {
+                    $image = $request->file('image');
+                    $imageData = base64_encode(file_get_contents($image));
+                    $user->image = $imageData;
+                }
+            $user->save();
+            return response()->json(["message" => 10], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+    }
+
     public function index(Request $request)
     {
         $email = $request->input("email");

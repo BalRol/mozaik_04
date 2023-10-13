@@ -36,3 +36,7 @@ Route::get('/profile', function () {
 Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
 
 Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
+
+Route::match(['get'], '/profileShowAjax', [UserController::class, 'show']);
+
+Route::match(['post', 'put'], '/profileAjax', [UserController::class, 'update']);
