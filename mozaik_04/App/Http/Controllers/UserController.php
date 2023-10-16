@@ -19,8 +19,8 @@ class UserController extends Controller
                   ->orWhere('email', $email);
         })->first();
         if ($user && $pwd === $user->password) {
-            $cookieValue = $user->id; // Például a felhasználó azonosítóját használjuk sütiként
-            $minutes = 60 * 12; // A sütik élettartama (például 1 hét)
+            $cookieValue = $user->id;
+            $minutes = 60 * 12;
 
             // Sütiket létrehozása
             Cookie::queue('user', $cookieValue, $minutes);
@@ -62,4 +62,24 @@ class UserController extends Controller
             return response()->json(["message" => 0], 200);
         }
     }
+
+    public function logout()
+    {
+        setcookie('user', '', 1, '/');
+
+        return response()->json(['success' => true]);
+    }
+
+    public function all(Request $request)
+    {
+        if ($request->hasCookie('user')) {
+            $userId = $request->cookie('user');
+            $users = User::whereNotIn('id', [$userId])->get();
+            return response()->json(["users" => $users], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+
+    }
+
 }

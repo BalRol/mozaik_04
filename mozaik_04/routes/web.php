@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,30 @@ Route::get('/dashboard', function () {
 });
 
 
+Route::get('/myevents', function () {
+    return view('myevents');
+});
+
+Route::get('/event', function () {
+    return view('event');
+});
 
 Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
 
 Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
+<<<<<<< Updated upstream
+=======
+
+Route::match(['get'], '/profileShowAjax', [UserController::class, 'show']);
+
+Route::match(['post', 'put'], '/profileAjax', [UserController::class, 'update']);
+
+Route::get('/logout', [UserController::class, 'logout']);
+
+Route::get('/allUserAjax', [UserController::class, 'all']);
+
+Route::get('/categoryAjax', [CategoryController::class, 'index']);
+
+Route::match(['post', 'put'], '/createEvent', [EventController::class, 'create']);
+
+>>>>>>> Stashed changes
