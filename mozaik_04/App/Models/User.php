@@ -13,6 +13,7 @@ class User extends Model
         'username',
         'email',
         'password',
+        'image',
     ];
     public  $timestamps = false;
 }
