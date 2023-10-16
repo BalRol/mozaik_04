@@ -23,7 +23,6 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (user) {
-            console.log(user); // Ellenőrizd a választ a konzolban
             document.querySelector('.name').textContent = user.user.username;
             document.querySelector('.email').textContent = user.user.email;
             $('#nameInput').val(user.user.username);
@@ -83,7 +82,7 @@ $(document).ready(function() {
         if(change  === 0){
             change=1;
             $('#profileForm').append(
-                `<div class="card mb-4" id="changePasswordDiv">
+                `<div class="card mb-4" id="changePasswordDiv" style="background-color: #111111; color:white;">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3">

@@ -25,7 +25,7 @@ if (!isset($_COOKIE['user'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center align-items-center" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="dashboard">Dashboard</a>
                     </li>
@@ -36,22 +36,27 @@ if (!isset($_COOKIE['user'])) {
                         <a class="nav-link" href="#">Profile</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav mx-3">
+                    <li class="nav-item">
+                        <button id="logout" type="button" class="btn btn-danger" style="display: block;">Logout</button>
+                    </li>
+                </ul>
             </div>
         </nav>
         <section id="profile">
             <div class="container" style="margin-top:90px; max-width:650px;">
                 <div id="profileForm" class="row">
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="background-color: #111111; color:white;">
                         <div class="card-body d-flex flex-column align-items-center">
                             <div class="d-flex align-items-center">
                                 <img id="profile-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid m-5" style="width: 250px; height: 250px;">
                                 <input type="file" id="image-input" accept="image/*" style="display: none" name="profile_image">
                             </div>
                             <h5 class="my-3"><span class="name">Full Name</span></h5>
-                            <p class="text-muted mb-1"><span class="email">Email</span></p>
+                            <p class=" mb-1"><span class="email">Email</span></p>
                         </div>
                     </div>
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="background-color: #111111; color:white;">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -86,8 +91,9 @@ if (!isset($_COOKIE['user'])) {
                         </div>
                     </div>
                 </div>
-                <button id="save" type="button" class="btn btn-success mx-auto" style="display: block; margin-top: 20px;">Mentés</button>
+                <button id="save" type="button" class="btn btn-success mx-auto" style="display: block; margin-top: 20px;">Save</button>
             </div>
         </section>
     </body>
+    <script src="logout.js"></script>
 </html>

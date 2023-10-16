@@ -3,6 +3,7 @@ $(document).ready(function() {
         var loginAddParams = {
             email: $('#email').val(),
             password: CryptoJS.SHA256($('#password').val()).toString(),
+
         };
         $.ajax({
             url: '/loginAjax',
