@@ -13,9 +13,6 @@ $(document).ready(function() {
         document.querySelector('.categoryPreview').textContent =$('#categorySelect').val();
         document.querySelector('.cardTitlePreview').textContent =$('#cardTitleInput').val();
         document.querySelector('.descriptionPreview').textContent =$('#descriptionTextArea').val();
-
-
-
     }
     const observerConfig = { attributes: true, childList: true, subtree: true, characterData: true };
     const pageObserver = new MutationObserver(handlePageChanges);
@@ -112,47 +109,52 @@ $(document).ready(function() {
     });
 
     $('#create').click(function(){
+        $go = true;
         let formData = new FormData();
-        if($('#startDateInput').val() === null){swal("Something went wrong", "The start date can't be empty.", "error");}
+        if($('#startDateInput').val() === ""){swal("Something went wrong", "The start date can't be empty.", "error"); $go = false;}
         else{formData.append('start_date', $('#startDateInput').val());}
         if($('#endDateInput').val() === $('#startDateInput').val()){formData.append('end_date', "");}
         else{formData.append('end_date', $('#endDateInput').val());}
-        if($('#cardTitleInput').val() === null){swal("Something went wrong", "The event name can't be empty.", "error");}
+        if($('#cardTitleInput').val() === ""){swal("Something went wrong", "The event name can't be empty.", "error"); $go = false;}
         else{formData.append('nameInput', $('#cardTitleInput').val());}
-        if($('#locationInput').val() === null){swal("Something went wrong", "The location can't be empty.", "error");}
+        if($('#locationInput').val() === ""){swal("Something went wrong", "The location can't be empty.", "error"); $go = false;}
         else{formData.append('location', $('#locationInput').val());}
         let imageInput = $('#event_input')[0];
         if (imageInput.files.length > 0) {
             formData.append('image', imageInput.files[0]);
         }
-        if($('#categorySelect').val() === null){swal("Something went wrong", "The category can't be empty.", "error");}
+        if($('#categorySelect').val() === null){swal("Something went wrong", "The category can't be empty.", "error"); $go = false;}
         else{formData.append('type', $('#categorySelect').val());}
-        if($('#visibilitySelect').val() === null){swal("Something went wrong", "The visibility can't be empty.", "error");}
+        if($('#visibilitySelect').val() === null){swal("Something went wrong", "The visibility can't be empty.", "error"); $go = false;}
         else{formData.append('visibility', $('#visibilitySelect').val());}
-        formData.append('description', $('#descriptionTextArea').val());
+
+        if($('#descriptionTextArea').val() === ""){swal("Something went wrong", "The description can't be empty.", "error"); $go = false;}
+        else{formData.append('description', $('#descriptionTextArea').val());}
         const selectElement = document.getElementById('selectLimitedUsers');
         if(selectElement) {
             formData.append('allowed_users', Array.from(selectElement.selectedOptions).map(option => option.value));
         }
-        $.ajax({
-            type: 'POST',
-            url: '/createEvent',
-            dataType: 'json',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (message) {
-                if(message.message === 10){
-                    swal("Event created", "", "success");
+        if($go) {
+            $.ajax({
+                type: 'POST',
+                url: '/createEvent',
+                dataType: 'json',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (message) {
+                    if (message.message === 10) {
+                        swal("Event created", "", "success");
+                    }
+                },
+                error: function () {
+                    swal("Something went wrong", "Please try again later.", "error");
                 }
-            },
-            error: function () {
-                swal("Something went wrong", "Please try again later.", "error");
-            }
-        });
+            });
+        }
     });
 
 

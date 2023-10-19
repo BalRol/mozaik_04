@@ -2,6 +2,9 @@ $(document).ready(function() {
     $('#createEvent').click(function(){
         window.location.href = '/event';
     });
+    $('#searchEvent').click(function(){
+        window.location.href = '/dashboard';
+    });
 
 
     $.ajax({

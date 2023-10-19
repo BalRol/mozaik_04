@@ -57,3 +57,5 @@ Route::get('/categoryAjax', [CategoryController::class, 'index']);
 
 Route::match(['post', 'put'], '/createEvent', [EventController::class, 'create']);
 
+Route::get('/dashboardAjax', [EventController::class, 'index']);
+

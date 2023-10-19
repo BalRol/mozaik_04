@@ -14,15 +14,15 @@ class Event extends Model
         'type',
         'description',
         'visibility',
-        'allowed_users',
     ];
 
     public $timestamps = false;
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 
     public function category()
     {

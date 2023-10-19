@@ -147,7 +147,7 @@
                       <div class="card-body">
                         <h5 class="card-title"><span class="cardTitlePreview"></span></h5>
                         <p class="card-text"><span class="descriptionPreview"></span></p>
-                        <div class="pt-1"> <button class="btn btn-dark btn-lg btn-block" id="login" type="button">Interest</button> </div>
+                        <div class="pt-1"> <button class="btn btn-dark btn-lg btn-block" id="login" type="button" disabled>Interest</button> </div>
                       </div>
                     </div>
                 </div>
