@@ -48,16 +48,18 @@ $(document).ready(function() {
                 url: '/allUserAjax',
                 dataType: 'json',
                 success: function (users) {
-                    $('#limitedUsers').append(`<hr><div class="row">
-                                                <div class="col-sm-3">
-                                                    <p class="mb-0">Select users</p>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <div class="input-group">
-                                                      <select class="form-control" id="selectLimitedUsers" multiple data-mdb-filter="true"> </select>
-                                                    </div>
-                                                </div>
-                                            </div>`);
+                    $('#limitedUsers').append(`
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Select users</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                  <select class="form-control" id="selectLimitedUsers" multiple data-mdb-filter="true"> </select>
+                                </div>
+                            </div>
+                        </div>`);
                     $.each(users.users, function(index, users) {
                         const option = document.createElement('option');
                         option.value = users.username;
@@ -83,7 +85,7 @@ $(document).ready(function() {
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        onSelect: function(dateText, inst) {
+        onSelect: function(dateText) {
             firstSelectedDate = new Date(dateText);
             if (new Date() > new Date(firstSelectedDate)) {
                 $("#startDateInput").val("");
@@ -97,7 +99,7 @@ $(document).ready(function() {
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        onSelect: function (dateText, inst) {
+        onSelect: function (dateText) {
             if (firstSelectedDate === null) {
                 $("#endDateInput").val("");
                 swal("Something went wrong", "Choose the start date first.", "error");
@@ -195,4 +197,56 @@ $(document).ready(function() {
             swal("Something went wrong", "Please try again later.", "error");
         }
     });
+
+
+    $.ajax({
+        type: 'GET',
+        url: '/editEventAjax',
+        dataType: 'json',
+        success: function (event) {
+            if(event.message === 10){
+                if (event.event.image === '') {
+                    event.event.image = "login_form.jpg"
+                } else {
+                    event.event.image = "data:image/png;base64," + event.event.image;
+                }
+                $('#startDateInput').val(event.event.start_date);
+                $('#endDateInput').val(event.event.end_date);
+                $('#cardTitleInput').val(event.event.name);
+                $('#locationInput').val(event.event.location);
+                $('#categorySelect').val(event.event.type);
+                $('#visibilitySelect').val(event.event.visibility);
+                $('#visibilitySelect').change();
+                $('#descriptionTextArea').val(event.event.description);
+                $('#event_image').attr('src', event.event.image);
+                $('#event_image_preview').attr('src', event.event.image);
+                $('#create').text("Update");
+                $('#buttons').append(`<button class="btn btn-danger btn-lg" id="delete" type="button">Delete</button>`)
+                deleteEvent();
+            }
+        },
+        error: function () {
+            swal("Something went wrong", "Please try again later.", "error");
+        }
+    });
+
+    function deleteEvent() {
+        $('#delete').click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/deleteEvent',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function () {
+                    swal("Event deleted", "", "success");
+                    window.location.href="/myevents";
+                },
+                error: function () {
+                    swal("Something went wrong", "Please try again later.", "error");
+                }
+            });
+        });
+    }
 })

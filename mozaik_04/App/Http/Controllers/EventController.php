@@ -30,18 +30,41 @@ class EventController extends Controller
                 $image = $request->file('image');
                 $imageData = base64_encode(file_get_contents($image));
             }else{$imageData = "";}
-            DB::table("event")->insert([
-                "user_id" => $user->id,
-                "name" => $nameInput,
-                "start_date" => $start_date,
-                "end_date" => $end_date,
-                "location" => $location,
-                "image" => $imageData,
-                "type" => $type,
-                "description" => $description,
-                "visibility" => $visibility,
-            ]);
-            $event_id = DB::getPdo()->lastInsertId();
+            if ($request->hasCookie('event')) {
+               $eventId = $request->cookie('event');
+               $event_id = DB::table('event')->find($eventId);
+               if($imageData == ""){
+                    $imageData = $event_id->image;
+               }
+               $event_id = $event_id->id;
+               DB::table("event")
+                   ->where('id', $event_id)
+                   ->update([
+                       "name" => $nameInput,
+                       "start_date" => $start_date,
+                       "end_date" => $end_date,
+                       "location" => $location,
+                       "image" => $imageData,
+                       "type" => $type,
+                       "description" => $description,
+                       "visibility" => $visibility,
+                   ]);
+           }
+
+            else{
+                DB::table("event")->insert([
+                    "user_id" => $user->id,
+                    "name" => $nameInput,
+                    "start_date" => $start_date,
+                    "end_date" => $end_date,
+                    "location" => $location,
+                    "image" => $imageData,
+                    "type" => $type,
+                    "description" => $description,
+                    "visibility" => $visibility,
+                ]);
+                $event_id = DB::getPdo()->lastInsertId();
+            }
             if($visibility === "Public"){
                 $user =  DB::table("user")->get();
                 foreach($user as $userTMP){
@@ -158,5 +181,42 @@ class EventController extends Controller
         } else {
             return response()->json(["message" => 0], 500);
         }
+    }
+
+    public function setEvent(Request $request){
+        if ($request->hasCookie('user')) {
+            $cookieValue = $request->eventId;
+            $minutes = 60 * 12;
+            Cookie::queue('event', $cookieValue, $minutes);
+            return response()->json(["message" => 10], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+    }
+
+    public function getEvent(Request $request){
+        if ($request->hasCookie('event')) {
+            $eventId = $request->cookie('event');
+            $event = DB::table('event')->find($eventId);
+            return response()->json(["message" => 10, "event" => $event], 200);
+        }
+        return response()->json(["message" => 0], 200);
+    }
+
+    public function delCookieEvent(Request $request){
+        if ($request->hasCookie('event')) {
+            setcookie('event', '', 1, '/');
+            return response()->json(['success' => true]);
+        }
+        return response()->json(["message" => 0], 200);
+    }
+
+    public function delete(Request $request){
+        if ($request->hasCookie('event')) {
+            DB::table('event')->where('id', $request->cookie('event'))->delete();
+        }else{
+            DB::table('event')->where('id', $request->eventId)->delete();
+        }
+        return response()->json(["message" => 10], 200);
     }
 }

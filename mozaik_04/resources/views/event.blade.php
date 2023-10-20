@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="pt-1 mx-auto text-center">
+                            <div class="pt-1 d-flex justify-content-between" id="buttons">
                                 <button class="btn btn-success btn-lg" id="create" type="button">Create</button>
                             </div>
                         </div>

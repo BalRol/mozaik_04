@@ -1,7 +1,43 @@
 $(document).ready(function() {
-
-
-
+    function eventEdit() {
+        $('.editEvent').click(function () {
+            var eventId = $(this).closest('div').find('#event_id').val();
+            $.ajax({
+                type: 'GET',
+                url: '/editEvent',
+                dataType: 'json',
+                data: {eventId: eventId},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function () {
+                    window.location.href="/event";
+                },
+                error: function () {
+                    swal("Something went wrong", "Please try again later.", "error");
+                }
+            });
+        });
+        $('.deleteEvent').click(function () {
+            var eventId = $(this).closest('div').find('#event_id').val();
+            $.ajax({
+                type: 'GET',
+                url: '/deleteEvent',
+                dataType: 'json',
+                data: {eventId: eventId},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function () {
+                    myEvents();
+                    swal("Event deleted", "", "success");
+                },
+                error: function () {
+                    swal("Something went wrong", "Please try again later.", "error");
+                }
+            });
+        });
+    }
     function myEvents(){
         $.ajax({
             type: 'GET',
@@ -34,17 +70,31 @@ $(document).ready(function() {
                         event.end_date = " - " + event.end_date
                     }
                     $('#myEvents').append(`
-                        <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%;">
+                        <div class="card my-3 p-0" style="background-color: #111111; color: white; max-width: 80%;">
                             <div class="card-body">
-                                <h5 class="card-title"><img src="${event.userImage}" alt="avatar" class="rounded-circle img-fluid m-1" style="width: 50px; height: 50px;"><span>${event.username}</span></h5>
-                            <p class="card-text"><small><span>${event.start_date}</span><span>${event.end_date}</span> | <span>${event.location}</span> | <span>${event.visibility}</span> | <span>${event.type}</span></small></p>
+                                <h5 class="card-title">
+                                    <img src="${event.userImage}" alt="avatar" class="rounded-circle img-fluid m-1" style="width: 50px; height: 50px;">
+                                    <span>${event.username}</span>
+                                </h5>
+                                <p class="card-text">
+                                    <small>
+                                        <span>${event.start_date}</span>
+                                        <span>${event.end_date}</span> |
+                                        <span>${event.location}</span> |
+                                        <span>${event.visibility}</span> |
+                                        <span>${event.type}</span>
+                                    </small>
+                                </p>
                             </div>
                             <img class="card-img-top" src="${event.image}" alt="Card image cap" style="max-height: 350px; max-width: 100%; object-fit: cover;">
                             <div class="card-body">
                                 <h5 class="card-title"><span>${event.name}</span></h5>
                                 <p class="card-text"><span>${event.description}</span></p>
-                                <div class="pt-1"> <button class="btn btn-dark btn-lg btn-block" id="editEvent" type="button">Edit</button> </div>
-                                <input type="hidden" id="event_id" value="${event.id}">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-dark btn-lg btn-block editEvent" type="button">Edit</button>
+                                    <button class="btn btn-danger btn-lg btn-block deleteEvent" type="button">Delete</button>
+                                    <input type="hidden" id="event_id" value="${event.id}">
+                                </div>
                             </div>
                         </div>
                     `)
@@ -58,8 +108,22 @@ $(document).ready(function() {
                         </li>
                     </ul>
                 `);
+                eventEdit();
                 $('#createEvent').click(function(){
-                    window.location.href = '/event';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/delCookieEvent',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function () {
+                            window.location.href = '/event';
+                        },
+                        error: function () {
+                            swal("Something went wrong", "Please try again later.", "error");
+                        }
+                    });
                 });
             },
             error: function () {

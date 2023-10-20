@@ -66,3 +66,11 @@ Route::get('/myEventsAjax', [EventController::class, 'myEvents']);
 
 Route::get('/interestEventsAjax', [EventController::class, 'interestEvents']);
 
+Route::get('/editEvent', [EventController::class, 'setEvent']);
+
+Route::get('/editEventAjax', [EventController::class, 'getEvent']);
+
+Route::get('/delCookieEvent', [EventController::class, 'delCookieEvent']);
+
+Route::get('/deleteEvent', [EventController::class, 'delete']);
+
