@@ -16,7 +16,6 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="dashboard.js"></script>
         <script src="logout.js"></script>
@@ -121,7 +120,7 @@
                             <!-- Egyéb részletes keresési opciók itt -->
                         </div>
                         <div class="d-flex justify-content-center mt-2">
-                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false">
+                            <button type="button" class="btn btn-link" style="color:white;" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false">
                                 Advanced Search
                             </button>
                         </div>
