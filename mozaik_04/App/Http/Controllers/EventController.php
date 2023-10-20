@@ -117,5 +117,39 @@ class EventController extends Controller
         }
     }
 
+    public function myEvents(Request $request){
+        if ($request->hasCookie('user')) {
+            $userId = $request->cookie('user');
+            $user = User::find($userId);
 
+            $userEvents = DB::table('event')
+                ->where('user_id', $user->id)
+                ->join('user', 'event.user_id', '=', 'user.id')
+                ->select('event.*', 'user.username', 'user.image as userImage')
+                ->get();
+
+            return response()->json(["userEvents" => $userEvents], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+    }
+
+    public function interestEvents(Request $request){
+        if ($request->hasCookie('user')) {
+            $userId = $request->cookie('user');
+            $user = User::find($userId);
+
+            $interestedEvents = DB::table('event')
+                ->join('userEvent', 'event.id', '=', 'userEvent.event_id')
+                ->join('user', 'event.user_id', '=', 'user.id')
+                ->where('userEvent.user_id', $user->id)
+                ->where('userEvent.is_interested', 1)
+                ->select('event.*', 'user.username', 'user.image as userImage')
+                ->get();
+
+            return response()->json(["interestedEvents" => $interestedEvents], 200);
+        } else {
+            return response()->json(["message" => 0], 500);
+        }
+    }
 }

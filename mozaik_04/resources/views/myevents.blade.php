@@ -40,9 +40,9 @@
         </nav>
         <section id="myevents">
             <div class="container py-5">
-                <div class="row d-flex justify-content-center align-items-center" style="color:white;">
-                    <h1 class="mt-3" >Your events</h1>
-                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; " >
+                <h1 class="mt-3" style="color:white;">Your events</h1>
+                <div class="row d-flex justify-content-center align-items-center" style="color:white;" id="myEvents">
+                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
                         <div class="card-body">
                             <h5 class="card-title">This is where events you've created appear.</h5>
                         </div>
@@ -52,8 +52,10 @@
                             <button id="createEvent" type="button" class="btn btn-primary mx-auto d-block" style="display: block;">New event</button>
                         </li>
                     </ul>
-                    <h1 class="mt-3">Your events of interest</h1>
-                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; " >
+                </div>
+                <h1 class="mt-3"  style="color:white;">Your events of interest</h1>
+                <div class="row d-flex justify-content-center align-items-center" style="color:white;" id="interestEvents">
+                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
                         <div class="card-body">
                             <h5 class="card-title">This is where events you've interested appear.</h5>
                         </div>

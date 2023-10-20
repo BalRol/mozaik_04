@@ -62,3 +62,7 @@ Route::get('/dashboardAjax', [EventController::class, 'index']);
 
 Route::match(['post', 'put'], '/interestEvent', [UserEventController::class, 'update']);
 
+Route::get('/myEventsAjax', [EventController::class, 'myEvents']);
+
+Route::get('/interestEventsAjax', [EventController::class, 'interestEvents']);
+
