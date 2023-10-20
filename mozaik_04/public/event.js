@@ -148,6 +148,7 @@ $(document).ready(function() {
                 success: function (message) {
                     if (message.message === 10) {
                         swal("Event created", "", "success");
+                        window.location.reload();
                     }
                 },
                 error: function () {

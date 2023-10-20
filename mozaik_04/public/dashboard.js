@@ -1,7 +1,7 @@
 $(document).ready(function() {
     function eventInterest() {
-        $('#interest').click(function () {
-            var eventId = $("#event_id").val();
+        $('.interest').click(function () {
+            var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
                 type: 'POST',
                 url: '/interestEvent',
@@ -36,7 +36,7 @@ $(document).ready(function() {
                     } else {
                         event.image = "data:image/png;base64," + event.image;
                     }
-                    if (event.userImage === '') {
+                    if (event.userImage === null) {
                         event.userImage = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                     } else {
                         event.userImage = "data:image/png;base64," + event.userImage;
@@ -48,10 +48,10 @@ $(document).ready(function() {
                     }
                     if (event.is_interested === 1) {
                         $color = "danger";
-                        $text = "Not interested"
+                        $text = "Not interest"
                     } else {
                         $color = "dark";
-                        $text = "Interested"
+                        $text = "Interest"
                     }
                     $('#dashboard_insert').append(`
                     <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; " >
@@ -63,8 +63,8 @@ $(document).ready(function() {
                         <div class="card-body">
                             <h5 class="card-title"><span>${event.name}</span></h5>
                             <p class="card-text"><span>${event.description}</span></p>
-                            <div class="pt-1"> <button class="btn btn-${$color} btn-lg btn-block" id="interest" type="button">${$text}</button> </div>
-                            <input type="hidden" id="event_id" value="${event.id}"></input>
+                            <div class="pt-1"> <button class="btn btn-${$color} btn-lg btn-block interest" class="" type="button">${$text}</button>
+                            <input type="hidden" id="event_id" value="${event.id}"></div>
                         </div>
                     </div>
                     `)

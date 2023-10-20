@@ -147,6 +147,13 @@ class EventController extends Controller
                 ->select('event.*', 'user.username', 'user.image as userImage')
                 ->get();
 
+            foreach ($interestedEvents as $event) {
+                $isInterested = DB::table('userEvent')
+                    ->where('user_id', $user->id)
+                    ->where('event_id', $event->id)
+                    ->value('is_interested');
+                $event->is_interested = $isInterested;
+            }
             return response()->json(["interestedEvents" => $interestedEvents], 200);
         } else {
             return response()->json(["message" => 0], 500);
