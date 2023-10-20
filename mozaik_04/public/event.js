@@ -180,10 +180,15 @@ $(document).ready(function() {
         type: 'GET',
         url: '/profileShowAjax',
         success: function (user) {
+            if(user.user.image === null){
+                $('#profile-image').attr('src', "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp");
+                $('#profile_image_preview').attr('src', "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp");
+            }else{
+                $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
+                $('#profile_image_preview').attr('src', 'data:image/png;base64,' + user.user.image);
+            }
             document.querySelector('.name').textContent = user.user.username;
-            $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
             document.querySelector('.name_preview').textContent = user.user.username;
-            $('#profile_image_preview').attr('src', 'data:image/png;base64,' + user.user.image);
         },
         error: function () {
             swal("Something went wrong", "Please try again later.", "error");

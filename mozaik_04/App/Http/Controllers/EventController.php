@@ -42,18 +42,32 @@ class EventController extends Controller
                 "visibility" => $visibility,
             ]);
             $event_id = DB::getPdo()->lastInsertId();
-            foreach ($names as $name) {
-                $user =  DB::table("user")
-                            ->where("username", $name)
-                            ->first();
-                if ($user) {
+            if($visibility === "Public"){
+                $user =  DB::table("user")->get();
+                foreach($user as $userTMP){
                     DB::table("userEvent")->insert([
-                        "user_id" => $user->id,
+                        "user_id" => $userTMP->id,
                         "event_id" => $event_id,
                     ]);
                 }
+            }else if($visibility === "Only me"){
+                DB::table("userEvent")->insert([
+                    "user_id" => $user->id,
+                    "event_id" => $event_id,
+                ]);
+            }else if($visibility === "Limited"){
+                foreach ($names as $name) {
+                    $user =  DB::table("user")
+                                ->where("username", $name)
+                                ->first();
+                    if ($user) {
+                        DB::table("userEvent")->insert([
+                            "user_id" => $user->id,
+                            "event_id" => $event_id,
+                        ]);
+                    }
+                }
             }
-
             return response()->json(["message" => 10], 200);
         } else {
             return response()->json(["message" => 0], 500);
@@ -85,14 +99,23 @@ class EventController extends Controller
 
             $userEvents = DB::table("event")
                     ->whereIn('event.id', $eventIds)
-                    ->join('user', 'event.user_id', '=', 'user.id') // Join the user table
-                    ->select('event.*', 'user.username', 'user.image as userImage') // Select the required columns
+                    ->join('user', 'event.user_id', '=', 'user.id')
+                    ->select('event.*', 'user.username', 'user.image as userImage')
                     ->get();
 
+            // Most a $userEvents-höz hozzáadod a userEvent tábla is_interested oszlopát
+            foreach ($userEvents as $event) {
+                $isInterested = DB::table('userEvent')
+                    ->where('user_id', $user->id)
+                    ->where('event_id', $event->id)
+                    ->value('is_interested');
+                $event->is_interested = $isInterested;
+            }
             return response()->json(["event" => $userEvents], 200);
         } else {
             return response()->json(["message" => 0], 500);
         }
     }
+
 
 }

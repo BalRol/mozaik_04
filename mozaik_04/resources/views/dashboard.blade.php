@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse justify-content-center align-items-center" id="navbarNav">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Dashboard</a>
+                    <a class="nav-link" href="dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="myevents">My events</a>
@@ -42,7 +42,11 @@
         <section id="dashboard">
             <div class="container py-5">
                 <div class="row d-flex justify-content-center align-items-center" id="dashboard_insert">
-
+                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; " >
+                        <div class="card-body">
+                            <h5 class="card-title">This is where events appear.</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

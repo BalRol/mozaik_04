@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +59,6 @@ Route::get('/categoryAjax', [CategoryController::class, 'index']);
 Route::match(['post', 'put'], '/createEvent', [EventController::class, 'create']);
 
 Route::get('/dashboardAjax', [EventController::class, 'index']);
+
+Route::match(['post', 'put'], '/interestEvent', [UserEventController::class, 'update']);
 
