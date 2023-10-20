@@ -77,4 +77,29 @@ $(document).ready(function() {
         });
     }
     eventsLoad();
+
+    $('#advancedSearch').on('shown.bs.collapse', function () {
+        $('.btn-link').text('Hide Advanced Search');
+    });
+    $('#advancedSearch').on('hidden.bs.collapse', function () {
+        $('.btn-link').text('Advanced Search');
+    });
+    $.ajax({
+        type: 'GET',
+        url: '/categoryAjax',
+        dataType: 'json',
+        success: function (categories) {
+            $.each(categories.category, function(index, category) {
+                const option = document.createElement('option');
+                option.value = category.name;
+                option.text = category.name;
+                document.getElementById('categorySelect').appendChild(option);
+            });
+        },
+        error: function () {
+            swal("Something went wrong", "Please try again later.", "error");
+        }
+    });
 })
+
+
