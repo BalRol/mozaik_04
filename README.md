@@ -1,3 +1,33 @@
+## Program Elindítása
+
+Ezen lépések segítenek elindítani a programot a helyi fejlesztői környezetben (XAMPP és Laravel) és futtatni a teszteket.
+
+### 1. Adatbázis Feltöltése
+
+1.1. Nyisd meg a phpMyAdmin felületet.
+
+1.2. Az "Import" (importálás) opcióval töltsd fel a `mozaik.sql` adatbázis export fájlt.
+
+1.3. Indítsd el az XAMPP alkalmazást, és győződj meg arról, hogy az Apache és MySQL szerverek futnak.
+
+### 2. Laravel Projekt Elindítása
+
+2.1 '.env.example' file nevét módosítsd '.env'-er.
+
+2.2. Nyisd meg a parancssort (CMD vagy terminál) a projekt gyökérmappájában.
+
+2.3. Futtasd az alábbi parancsokat a Laravel projekt elindításához: 
+
+    composer install
+    composer update
+    php artisan serve
+
+2.4. Miután a parancs lefutott, a Laravel alkalmazás a localhost:8000 címen lesz elérhető.
+
+### 3. Tesztek Futtatása
+3.1. A tesztek futtatásához használjuk a következő parancsot: 
+
+    php artisan test
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
