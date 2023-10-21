@@ -151,6 +151,9 @@ $(document).ready(function() {
                     if (message.message === 10) {
                         swal("Event created", "", "success");
                         window.location.reload();
+                    }else if(message.message === 15){
+                        swal("Event updated", "", "success");
+                        window.location.reload();
                     }
                 },
                 error: function () {

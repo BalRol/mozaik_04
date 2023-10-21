@@ -20,11 +20,26 @@ $(document).ready(function() {
         });
     }
 
+    let searchData = {};
+    $('#search').click(function(){
+        searchData.id = "10";
+        searchData.search = $('#searchInput').val();
+        searchData.start_date = $('#start_date').val();
+        searchData.end_date = $('#end_date').val();
+        searchData.location = $('#location').val();
+        searchData.visibility = $('#visibility').val();
+        searchData.category = $('#category').val();
+        searchData.name = $('#name').val();
+        searchData.description = $('#description').val();
+        eventsLoad();
+    });
     function eventsLoad() {
+
         $.ajax({
             url: '/dashboardAjax',
             type: 'GET',
             dataType: 'json',
+            data: searchData,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

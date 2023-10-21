@@ -68,30 +68,67 @@ class EventController extends Controller
             if($visibility === "Public"){
                 $user =  DB::table("user")->get();
                 foreach($user as $userTMP){
-                    DB::table("userEvent")->insert([
-                        "user_id" => $userTMP->id,
+                    $existingRecord = DB::table('userEvent')
+                        ->where('user_id', $userTMP->id)
+                        ->where('event_id', $event_id)
+                        ->first();
+
+                    if (!$existingRecord) {
+                        DB::table('userEvent')->insert([
+                            "user_id" => $userTMP->id,
+                            "event_id" => $event_id,
+                        ]);
+                    }
+                }
+            }else if($visibility === "Only me"){
+                $existingRecord = DB::table('userEvent')
+                    ->where('user_id', $user->id)
+                    ->where('event_id', $event_id)
+                    ->first();
+
+                if (!$existingRecord) {
+                    DB::table('userEvent')->insert([
+                        "user_id" => $user->id,
                         "event_id" => $event_id,
                     ]);
                 }
-            }else if($visibility === "Only me"){
-                DB::table("userEvent")->insert([
-                    "user_id" => $user->id,
-                    "event_id" => $event_id,
-                ]);
             }else if($visibility === "Limited"){
                 foreach ($names as $name) {
                     $user =  DB::table("user")
                                 ->where("username", $name)
                                 ->first();
                     if ($user) {
-                        DB::table("userEvent")->insert([
-                            "user_id" => $user->id,
-                            "event_id" => $event_id,
-                        ]);
+
+                        $existingRecord = DB::table('userEvent')
+                            ->where('user_id', $user->id)
+                            ->where('event_id', $event_id)
+                            ->first();
+
+                        if (!$existingRecord) {
+                            DB::table('userEvent')->insert([
+                                "user_id" => $user->id,
+                                "event_id" => $event_id,
+                            ]);
+                        }
                     }
                 }
+                $existingRecord = DB::table('userEvent')
+                    ->where('user_id', $user->id)
+                    ->where('event_id', $event_id)
+                    ->first();
+
+                if (!$existingRecord) {
+                    DB::table('userEvent')->insert([
+                        "user_id" => $user->id,
+                        "event_id" => $event_id,
+                    ]);
+                }
             }
-            return response()->json(["message" => 10], 200);
+            if ($request->hasCookie('event')) {
+                return response()->json(["message" => 15], 200);
+            }else{
+                return response()->json(["message" => 10], 200);
+            }
         } else {
             return response()->json(["message" => 0], 500);
         }
@@ -99,7 +136,7 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->hasCookie('user')) {
+        if ($request->hasCookie('user') && $request->id != 10) {
             $userId = $request->cookie('user');
             $user = User::find($userId);
 
@@ -126,7 +163,6 @@ class EventController extends Controller
                     ->select('event.*', 'user.username', 'user.image as userImage')
                     ->get();
 
-            // Most a $userEvents-höz hozzáadod a userEvent tábla is_interested oszlopát
             foreach ($userEvents as $event) {
                 $isInterested = DB::table('userEvent')
                     ->where('user_id', $user->id)
@@ -135,7 +171,60 @@ class EventController extends Controller
                 $event->is_interested = $isInterested;
             }
             return response()->json(["event" => $userEvents], 200);
-        } else {
+        }else if($request->hasCookie('user')){
+            $userId = $request->cookie('user');
+            $user = User::find($userId);
+            $searchData = $request->searchData;
+            $results = DB::table('event')
+                ->join('user', 'event.user_id', '=', 'user.id')
+                ->where(function($query) use ($request){
+                    if($request->search != ""){
+                        $query->orWhere('name', 'like', '%' . $request->search . '%')
+                        ->orWhere('description', 'like', '%' . $request->search . '%')
+                        ->orWhere('location', 'like', '%' . $request->search . '%')
+                        ->orWhere('visibility', 'like', '%' . $request->search . '%')
+                        ->orWhere('type', 'like', '%' . $request->search . '%')
+                        ->orWhere('start_date', 'like', '%' . $request->search . '%')
+                        ->orWhere('end_date', 'like', '%' . $request->search . '%');
+                    }
+                    if($request->location != ""){
+                        $query->orWhere('location', 'like', '%' . $request->location . '%');
+                    }
+                    if($request->name != ""){
+                        $query->orWhere('name', 'like', '%' . $request->name . '%');
+                    }
+                    if($request->description != ""){
+                        $query->orWhere('description', 'like', '%' . $request->description . '%');
+                    }
+                    if($request->visibility != ""){
+                        $query->orWhere('visibility', 'like', '%' . $request->visibility . '%');
+                    }
+                    if($request->category != ""){
+                        $query->orWhere('type', 'like', '%' . $request->category . '%');
+                    }
+                    if($request->start_date != "" && $request->end_date != ""){
+                        $query->whereDate('start_date', '>=', $request->start_date)
+                        ->whereDate('end_date', '<=', $request->end_date);
+                    }
+                    if($request->start_date != "" && $request->end_date == "" ){
+                        $query->whereDate('start_date', '>=', $request->start_date);
+                    }
+                    if($request->start_date == "" && $request->end_date != ""){
+                        $query->whereDate('end_date', '<=', $request->end_date);
+                    }
+                })
+                ->select('event.*', 'user.username', 'user.image as userImage')
+                ->get();
+
+            foreach ($results as $event) {
+                $isInterested = DB::table('userEvent')
+                    ->where('user_id', $user->id)
+                    ->where('event_id', $event->id)
+                    ->value('is_interested');
+                $event->is_interested = $isInterested;
+            }
+            return response()->json(["event" => $results], 200);
+        }else {
             return response()->json(["message" => 0], 500);
         }
     }

@@ -10,15 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Dashboard - Events</title>
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="dashboard.js"></script>
-        <script src="logout.js"></script>
+        <script src="js/dashboard.js"></script>
+        <script src="js/logout.js"></script>
     </head>
     <body style="background-color: #2C2C2C;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -47,8 +47,8 @@
                     <div class="search-container">
                         <div class="d-flex justify-content-center mt-5">
                             <div class="input-group" style="max-width: 600px;">
-                                <input id="search-focus" type="search" id="form1" class="form-control" placeholder="Search..." />
-                                <button type="button" class="btn btn-primary">
+                                <input id="searchInput" type="search" id="form1" class="form-control" placeholder="Search..." />
+                                <button type="button" id="search" class="btn btn-primary">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -67,7 +67,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" color: white; border: none; style="width: 100px;">End date: </span>
                                     </div>
-                                    <input type="date" class="form-control" id="start_date" placeholder="End date">
+                                    <input type="date" class="form-control" id="end_date" placeholder="End date">
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
@@ -75,7 +75,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" color: white; border: none; style="width: 100px;">Location: </span>
                                     </div>
-                                    <input type="search" class="form-control" id="start_date" placeholder="Location">
+                                    <input type="search" class="form-control" id="location" placeholder="Location">
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
@@ -106,7 +106,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" color: white; border: none; style="width: 100px;">Name: </span>
                                     </div>
-                                    <input type="search" class="form-control" id="start_date" placeholder="Name">
+                                    <input type="search" class="form-control" id="name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3">
@@ -114,10 +114,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" color: white; border: none; style="width: 100px;">Description: </span>
                                     </div>
-                                    <input type="search" class="form-control" id="start_date" placeholder="Description">
+                                    <input type="search" class="form-control" id="description" placeholder="Description">
                                 </div>
                             </div>
-                            <!-- Egyéb részletes keresési opciók itt -->
                         </div>
                         <div class="d-flex justify-content-center mt-2">
                             <button type="button" class="btn btn-link" style="color:white;" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="false">
@@ -138,5 +137,5 @@
             </div>
         </section>
     </body>
-    <script src="logout.js"></script>
+    <script src="js/logout.js"></script>
 </html>
