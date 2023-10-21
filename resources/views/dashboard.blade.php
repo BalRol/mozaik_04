@@ -18,31 +18,39 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="js/dashboard.js"></script>
     <script src="js/logout.js"></script>
 </head>
 
 <body style="background-color: #2C2C2C;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="collapse navbar-collapse justify-content-center align-items-center" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-start align-items-center" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="dashboard">Dashboard</a>
+                    <a class="nav-link text-light" href="dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="myevents">My events</a>
+                    <a class="nav-link text-light" href="myevents">My events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profile">Profile</a>
+                    <a class="nav-link text-light" href="profile">Profile</a>
                 </li>
             </ul>
-            <ul class="navbar-nav mx-3">
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <button id="logout" type="button" class="btn btn-danger" style="display: block;">Logout</button>
                 </li>
             </ul>
         </div>
     </nav>
+
     <section id="dashboard">
         <div class="container py-5">
             <div class="container mt-5">

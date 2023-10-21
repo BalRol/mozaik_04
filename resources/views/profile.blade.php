@@ -26,19 +26,21 @@ if (!isset($_COOKIE['user'])) {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center align-items-center" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
+        <div class="collapse navbar-collapse justify-content-start align-items-center" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="dashboard">Dashboard</a>
+                    <a class="nav-link text-light" href="dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="myevents">My events</a>
+                    <a class="nav-link text-light" href="myevents">My events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link text-light" href="profile">Profile</a>
                 </li>
             </ul>
-            <ul class="navbar-nav mx-3">
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <button id="logout" type="button" class="btn btn-danger" style="display: block;">Logout</button>
                 </li>

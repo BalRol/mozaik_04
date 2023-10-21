@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('user', function (Blueprint $table) {
-            $table->binary('image')->nullable();
+            $table->longBlob('image')->nullable();
         });
     }
 

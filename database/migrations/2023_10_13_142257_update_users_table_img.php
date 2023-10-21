@@ -14,7 +14,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->binary('image')->nullable()->change();
+            $table->longBlob('image')->nullable()->change();
         });
     }
 };

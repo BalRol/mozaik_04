@@ -94,18 +94,18 @@ class EventController extends Controller
                 }
             } elseif ($visibility === "Limited") {
                 foreach ($names as $name) {
-                    $user = DB::table("user")
+                    $userTMP = DB::table("user")
                         ->where("username", $name)
                         ->first();
                     if ($user) {
                         $existingRecord = DB::table("userEvent")
-                            ->where("user_id", $user->id)
+                            ->where("user_id", $userTMP->id)
                             ->where("event_id", $event_id)
                             ->first();
 
                         if (!$existingRecord) {
                             DB::table("userEvent")->insert([
-                                "user_id" => $user->id,
+                                "user_id" => $userTMP->id,
                                 "event_id" => $event_id,
                             ]);
                         }
@@ -260,7 +260,11 @@ class EventController extends Controller
                                 ">=",
                                 $request->start_date
                             )
-                            ->whereDate("end_date", "<=", $request->end_date);
+                            ->whereDate(
+                                "end_date",
+                                "<=",
+                                $request->end_date
+                            );
                     }
                     if (
                         $request->start_date != "" &&
@@ -276,7 +280,11 @@ class EventController extends Controller
                         $request->start_date == "" &&
                         $request->end_date != ""
                     ) {
-                        $query->whereDate("end_date", "<=", $request->end_date);
+                        $query->whereDate(
+                            "end_date",
+                            "<=",
+                            $request->end_date
+                        );
                     }
                 })
                 ->select("event.*", "user.username", "user.image as userImage")

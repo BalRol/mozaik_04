@@ -46,12 +46,12 @@ $(document).ready(function() {
             success: function (events) {
                 $('#dashboard_insert').html("");
                 $.each(events.event, function (index, event) {
-                    if (event.image === '') {
+                    if (event.image === '' || event.image === null) {
                         event.image = "login_form.jpg"
                     } else {
                         event.image = "data:image/png;base64," + event.image;
                     }
-                    if (event.userImage === null) {
+                    if (event.userImage === null || event.userImage === '') {
                         event.userImage = "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                     } else {
                         event.userImage = "data:image/png;base64," + event.userImage;
@@ -63,7 +63,7 @@ $(document).ready(function() {
                     }
                     if (event.is_interested === 1) {
                         $color = "danger";
-                        $text = "Not interest"
+                        $text = "Uninterest"
                     } else {
                         $color = "dark";
                         $text = "Interest"

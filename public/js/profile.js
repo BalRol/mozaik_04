@@ -27,7 +27,11 @@ $(document).ready(function() {
             document.querySelector('.email').textContent = user.user.email;
             $('#nameInput').val(user.user.username);
             $('#emailInput').val(user.user.email);
-            $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
+            if(user.user.image === '' || user.user.image === null){
+                $('#profile-image').attr('src', 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp');
+            }else{
+                $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
+            }
         },
         error: function() {
             swal("Something went wrong", "Please try again later.", "error");
@@ -48,7 +52,6 @@ $(document).ready(function() {
             formData.append('newPassword', CryptoJS.SHA256($pwd).toString());
             formData.append('oldPassword', CryptoJS.SHA256($('#oldPassword').val()).toString());
 
-            // Ellenőrizd, hogy a fájlt feltöltötték-e, és ha igen, mentsd le
             let imageInput = $('#image-input')[0];
             if (imageInput.files.length > 0) {
                 formData.append('image', imageInput.files[0]);

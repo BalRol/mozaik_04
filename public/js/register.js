@@ -35,6 +35,7 @@ $(document).ready(function() {
                         $('#registerEmail').val('');
                         $('#registerPassword').val('');
                         $('#registerPasswordAgain').val('');
+                        window.location.href="/";
                     } else if (response.message === 1) {
                         swal("Registration failed!", "Username empty.", "error");
                     } else if (response.message === 2) {

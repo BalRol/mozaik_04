@@ -16,13 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->string('location');
-            $table->binary('image');
+            $table->longBlob('image');
             $table->string('type');
             $table->mediumText('description');
-            $table->integer('visibility');
-            $table->mediumText('allowed_users');
+            $table->string('visibility');
 
             $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
