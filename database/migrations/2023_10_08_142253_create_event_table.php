@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('location');
-            $table->longBlob('image');
+            $table->binary('image', 'long')->nullable();
             $table->string('type');
             $table->mediumText('description');
             $table->string('visibility');

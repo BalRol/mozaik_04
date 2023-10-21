@@ -14,20 +14,13 @@ class EventControllerTest extends TestCase
 {
     public function testCreateEvent()
     {
-        // Létrehozunk egy teszt felhasználót az adatbázisban
-        $user = new User([
-            'username' => 'John Doe',
-            'email' => 'johndoe@example.com',
-            'password' => bcrypt('password123'), // A jelszót megfelelően titkosítjuk
-        ]);
-        $user->save();
-        Cookie::queue('user', $user->id);
-
+        $user = User::factory()->create();
+        $this->withCookie('user', $user->id);
         // Elkészítjük a tesztadatokat
         $data = [
             'nameInput' => 'Sample Event',
-            'start_date' => '2023-01-01',
-            'end_date' => '2023-01-02',
+            'start_date' => '2023-12-01',
+            'end_date' => '2023-12-02',
             'location' => 'Sample Location',
             'type' => 'Music',
             'visibility' => 'Public',
@@ -48,16 +41,17 @@ class EventControllerTest extends TestCase
         // Az adatbázisban megkeressük az eseményt és ellenőrizzük, hogy létezik-e
         $this->assertDatabaseHas('events', [
             'name' => 'Sample Event',
-            'start_date' => '2023-01-01',
-            'end_date' => '2023-01-02',
+            'start_date' => '2023-12-01',
+            'end_date' => '2023-12-02',
             'location' => 'Sample Location',
-            'type' => 'Sample Type',
+            'type' => 'Music',
             'description' => 'Sample Description',
             'visibility' => 'Public',
+            'allowed_users' => '',
         ]);
 
         // Az adatbázisban megkeressük az eseményhez tartozó UserEvent rekordokat és ellenőrizzük, hogy léteznek
-        $this->assertDatabaseHas('user_events', [
+        $this->assertDatabaseHas('userEvent', [
             'user_id' => $user->id,
         ]);
     }

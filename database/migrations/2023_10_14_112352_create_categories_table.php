@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->string('name')->primary();
             $table->text('description')->nullable();
+            $table->timestamps(0);
         });
 
         DB::statement("ALTER TABLE event
@@ -42,7 +43,7 @@ return new class extends Migration
         ];
 
         foreach ($data as $item) {
-            DB::table('categories')->insert([
+            DB::table('category')->insert([
                 'name' => $item[0],
                 'description' => $item[1],
                 'created_at' => now(),
