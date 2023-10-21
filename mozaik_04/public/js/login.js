@@ -13,13 +13,13 @@ $(document).ready(function() {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function (response) {
-                if(response.message === 10){
+            success: function(response) {
+                if (response.message === 10) {
                     swal("Login success", "", "success");
                     window.location.href = "/dashboard";
                 }
             },
-            error: function () {
+            error: function() {
                 swal("Something went wrong", "Please try again later.", "error");
             }
         });

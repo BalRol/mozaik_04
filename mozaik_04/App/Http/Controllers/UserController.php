@@ -7,13 +7,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cookie;
 
-
 class UserController extends Controller
 {
     public function show(Request $request)
     {
-        if ($request->hasCookie('user')) {
-            $userId = $request->cookie('user');
+        if ($request->hasCookie("user")) {
+            $userId = $request->cookie("user");
             $user = User::find($userId);
             return response()->json(["user" => $user], 200);
         } else {
@@ -21,23 +20,26 @@ class UserController extends Controller
         }
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $email = $request->input("email");
         $name = $request->input("name");
         $oldPassword = $request->input("oldPassword");
         $newPassword = $request->input("newPassword");
 
-        if ($request->hasCookie('user')) {
-            $userId = $request->cookie('user');
+        if ($request->hasCookie("user")) {
+            $userId = $request->cookie("user");
             $user = User::find($userId);
             $user->username = $name;
             $user->email = $email;
-            if($user->password === $oldPassword && $newPassword !== ""){$user->password = $newPassword;}
-            if ($request->hasFile('image')) {
-                    $image = $request->file('image');
-                    $imageData = base64_encode(file_get_contents($image));
-                    $user->image = $imageData;
-                }
+            if ($user->password === $oldPassword && $newPassword !== "") {
+                $user->password = $newPassword;
+            }
+            if ($request->hasFile("image")) {
+                $image = $request->file("image");
+                $imageData = base64_encode(file_get_contents($image));
+                $user->image = $imageData;
+            }
             $user->save();
             return response()->json(["message" => 10], 200);
         } else {
@@ -50,18 +52,16 @@ class UserController extends Controller
         $email = $request->input("email");
         $pwd = $request->input("password");
         $user = User::where(function ($query) use ($email) {
-            $query->where('username', $email)
-                  ->orWhere('email', $email);
+            $query->where("username", $email)->orWhere("email", $email);
         })->first();
         if ($user && $pwd === $user->password) {
             $cookieValue = $user->id;
             $minutes = 60 * 12;
 
             // Sütiket létrehozása
-            Cookie::queue('user', $cookieValue, $minutes);
+            Cookie::queue("user", $cookieValue, $minutes);
             return response()->json(["message" => 10], 200);
         }
-
     }
 
     public function create(Request $request)
@@ -100,21 +100,19 @@ class UserController extends Controller
 
     public function logout()
     {
-        setcookie('user', '', 1, '/');
+        setcookie("user", "", 1, "/");
 
-        return response()->json(['success' => true]);
+        return response()->json(["success" => true]);
     }
 
     public function all(Request $request)
     {
-        if ($request->hasCookie('user')) {
-            $userId = $request->cookie('user');
-            $users = User::whereNotIn('id', [$userId])->get();
+        if ($request->hasCookie("user")) {
+            $userId = $request->cookie("user");
+            $users = User::whereNotIn("id", [$userId])->get();
             return response()->json(["users" => $users], 200);
         } else {
             return response()->json(["message" => 0], 500);
         }
-
     }
-
 }

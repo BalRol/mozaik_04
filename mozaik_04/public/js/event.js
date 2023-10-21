@@ -2,19 +2,24 @@ $(document).ready(function() {
 
 
     function handlePageChanges() {
-        document.querySelector('.startDatePreview').textContent =$('#startDateInput').val();
-        if($('#endDateInput').val() !== ""){
+        document.querySelector('.startDatePreview').textContent = $('#startDateInput').val();
+        if ($('#endDateInput').val() !== "") {
             document.querySelector('.endDatePreview').textContent = " - " + $('#endDateInput').val();
-        }else{
+        } else {
             document.querySelector('.endDatePreview').textContent = "";
         }
-        document.querySelector('.locationPreview').textContent =$('#locationInput').val();
-        document.querySelector('.visibilityPreview').textContent =$('#visibilitySelect').val();
-        document.querySelector('.categoryPreview').textContent =$('#categorySelect').val();
-        document.querySelector('.cardTitlePreview').textContent =$('#cardTitleInput').val();
-        document.querySelector('.descriptionPreview').textContent =$('#descriptionTextArea').val();
+        document.querySelector('.locationPreview').textContent = $('#locationInput').val();
+        document.querySelector('.visibilityPreview').textContent = $('#visibilitySelect').val();
+        document.querySelector('.categoryPreview').textContent = $('#categorySelect').val();
+        document.querySelector('.cardTitlePreview').textContent = $('#cardTitleInput').val();
+        document.querySelector('.descriptionPreview').textContent = $('#descriptionTextArea').val();
     }
-    const observerConfig = { attributes: true, childList: true, subtree: true, characterData: true };
+    const observerConfig = {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        characterData: true
+    };
     const pageObserver = new MutationObserver(handlePageChanges);
     pageObserver.observe(document.body, observerConfig);
     document.addEventListener('input', function(event) {
@@ -33,7 +38,7 @@ $(document).ready(function() {
         const file = input.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 image.src = e.target.result;
                 imagePreview.src = e.target.result;
             };
@@ -41,13 +46,13 @@ $(document).ready(function() {
         }
     })
 
-    $('#visibilitySelect').on('change', function(){
+    $('#visibilitySelect').on('change', function() {
         if ($('#visibilitySelect').val() === 'Limited') {
             $.ajax({
                 type: 'GET',
                 url: '/allUserAjax',
                 dataType: 'json',
-                success: function (users) {
+                success: function(users) {
                     $('#limitedUsers').append(`
                         <hr>
                         <div class="row">
@@ -67,11 +72,11 @@ $(document).ready(function() {
                         document.getElementById('selectLimitedUsers').appendChild(option);
                     });
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
-        }else{
+        } else {
             const limitedUsersElement = document.getElementById('limitedUsers');
             while (limitedUsersElement.firstChild) {
                 limitedUsersElement.removeChild(limitedUsersElement.firstChild);
@@ -99,7 +104,7 @@ $(document).ready(function() {
         changeMonth: true,
         changeYear: true,
         showButtonPanel: true,
-        onSelect: function (dateText) {
+        onSelect: function(dateText) {
             if (firstSelectedDate === null) {
                 $("#endDateInput").val("");
                 swal("Something went wrong", "Choose the start date first.", "error");
@@ -110,33 +115,60 @@ $(document).ready(function() {
         }
     });
 
-    $('#create').click(function(){
+    $('#create').click(function() {
         $go = true;
         let formData = new FormData();
-        if($('#startDateInput').val() === ""){swal("Something went wrong", "The start date can't be empty.", "error"); $go = false;}
-        else{formData.append('start_date', $('#startDateInput').val());}
-        if($('#endDateInput').val() === $('#startDateInput').val()){formData.append('end_date', "");}
-        else{formData.append('end_date', $('#endDateInput').val());}
-        if($('#cardTitleInput').val() === ""){swal("Something went wrong", "The event name can't be empty.", "error"); $go = false;}
-        else{formData.append('nameInput', $('#cardTitleInput').val());}
-        if($('#locationInput').val() === ""){swal("Something went wrong", "The location can't be empty.", "error"); $go = false;}
-        else{formData.append('location', $('#locationInput').val());}
+        if ($('#startDateInput').val() === "") {
+            swal("Something went wrong", "The start date can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('start_date', $('#startDateInput').val());
+        }
+        if ($('#endDateInput').val() === $('#startDateInput').val()) {
+            formData.append('end_date', "");
+        } else {
+            formData.append('end_date', $('#endDateInput').val());
+        }
+        if ($('#cardTitleInput').val() === "") {
+            swal("Something went wrong", "The event name can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('nameInput', $('#cardTitleInput').val());
+        }
+        if ($('#locationInput').val() === "") {
+            swal("Something went wrong", "The location can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('location', $('#locationInput').val());
+        }
         let imageInput = $('#event_input')[0];
         if (imageInput.files.length > 0) {
             formData.append('image', imageInput.files[0]);
         }
-        if($('#categorySelect').val() === null){swal("Something went wrong", "The category can't be empty.", "error"); $go = false;}
-        else{formData.append('type', $('#categorySelect').val());}
-        if($('#visibilitySelect').val() === null){swal("Something went wrong", "The visibility can't be empty.", "error"); $go = false;}
-        else{formData.append('visibility', $('#visibilitySelect').val());}
+        if ($('#categorySelect').val() === null) {
+            swal("Something went wrong", "The category can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('type', $('#categorySelect').val());
+        }
+        if ($('#visibilitySelect').val() === null) {
+            swal("Something went wrong", "The visibility can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('visibility', $('#visibilitySelect').val());
+        }
 
-        if($('#descriptionTextArea').val() === ""){swal("Something went wrong", "The description can't be empty.", "error"); $go = false;}
-        else{formData.append('description', $('#descriptionTextArea').val());}
+        if ($('#descriptionTextArea').val() === "") {
+            swal("Something went wrong", "The description can't be empty.", "error");
+            $go = false;
+        } else {
+            formData.append('description', $('#descriptionTextArea').val());
+        }
         const selectElement = document.getElementById('selectLimitedUsers');
-        if(selectElement) {
+        if (selectElement) {
             formData.append('allowed_users', Array.from(selectElement.selectedOptions).map(option => option.value));
         }
-        if($go) {
+        if ($go) {
             $.ajax({
                 type: 'POST',
                 url: '/createEvent',
@@ -147,16 +179,16 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (message) {
+                success: function(message) {
                     if (message.message === 10) {
                         swal("Event created", "", "success");
                         window.location.reload();
-                    }else if(message.message === 15){
+                    } else if (message.message === 15) {
                         swal("Event updated", "", "success");
                         window.location.reload();
                     }
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
@@ -168,7 +200,7 @@ $(document).ready(function() {
         type: 'GET',
         url: '/categoryAjax',
         dataType: 'json',
-        success: function (categories) {
+        success: function(categories) {
             $.each(categories.category, function(index, category) {
                 const option = document.createElement('option');
                 option.value = category.name;
@@ -176,7 +208,7 @@ $(document).ready(function() {
                 document.getElementById('categorySelect').appendChild(option);
             });
         },
-        error: function () {
+        error: function() {
             swal("Something went wrong", "Please try again later.", "error");
         }
     });
@@ -185,18 +217,18 @@ $(document).ready(function() {
     $.ajax({
         type: 'GET',
         url: '/profileShowAjax',
-        success: function (user) {
-            if(user.user.image === null){
+        success: function(user) {
+            if (user.user.image === null) {
                 $('#profile-image').attr('src', "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp");
                 $('#profile_image_preview').attr('src', "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp");
-            }else{
+            } else {
                 $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
                 $('#profile_image_preview').attr('src', 'data:image/png;base64,' + user.user.image);
             }
             document.querySelector('.name').textContent = user.user.username;
             document.querySelector('.name_preview').textContent = user.user.username;
         },
-        error: function () {
+        error: function() {
             swal("Something went wrong", "Please try again later.", "error");
         }
     });
@@ -206,8 +238,8 @@ $(document).ready(function() {
         type: 'GET',
         url: '/editEventAjax',
         dataType: 'json',
-        success: function (event) {
-            if(event.message === 10){
+        success: function(event) {
+            if (event.message === 10) {
                 if (event.event.image === '') {
                     event.event.image = "login_form.jpg"
                 } else {
@@ -228,13 +260,13 @@ $(document).ready(function() {
                 deleteEvent();
             }
         },
-        error: function () {
+        error: function() {
             swal("Something went wrong", "Please try again later.", "error");
         }
     });
 
     function deleteEvent() {
-        $('#delete').click(function () {
+        $('#delete').click(function() {
             $.ajax({
                 type: 'GET',
                 url: '/deleteEvent',
@@ -242,11 +274,11 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function () {
+                success: function() {
                     swal("Event deleted", "", "success");
-                    window.location.href="/myevents";
+                    window.location.href = "/myevents";
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });

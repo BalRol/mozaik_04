@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserEvent extends Model
 {
-    protected $table = 'userEvent'; // A tábla neve
+    protected $table = 'userEvent';
 
     protected $fillable = ['user_id', 'event_id'];
 

@@ -9,7 +9,7 @@ $(document).ready(function() {
         const file = input.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 image.src = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -22,14 +22,14 @@ $(document).ready(function() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function (user) {
+        success: function(user) {
             document.querySelector('.name').textContent = user.user.username;
             document.querySelector('.email').textContent = user.user.email;
             $('#nameInput').val(user.user.username);
             $('#emailInput').val(user.user.email);
             $('#profile-image').attr('src', 'data:image/png;base64,' + user.user.image);
         },
-        error: function () {
+        error: function() {
             swal("Something went wrong", "Please try again later.", "error");
         }
     });
@@ -54,7 +54,6 @@ $(document).ready(function() {
                 formData.append('image', imageInput.files[0]);
             }
         }
-
         if ($go) {
             $.ajax({
                 url: '/profileAjax',
@@ -65,12 +64,12 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.message === 10) {
                         swal("Change successful", "The data has been successfully changed", "success");
                     }
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
@@ -78,9 +77,9 @@ $(document).ready(function() {
     });
 
     var change = 0;
-    $('#changePassword').click(function(){
-        if(change  === 0){
-            change=1;
+    $('#changePassword').click(function() {
+        if (change === 0) {
+            change = 1;
             $('#profileForm').append(
                 `<div class="card mb-4" id="changePasswordDiv" style="background-color: #111111; color:white;">
                     <div class="card-body">
@@ -119,11 +118,9 @@ $(document).ready(function() {
                     </div>
                 </div>`
             );
-        }else if(change === 1){
-            change=0;
+        } else if (change === 1) {
+            change = 0;
             $('#changePasswordDiv').remove();
-
         }
-
     })
 })

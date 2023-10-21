@@ -3,13 +3,13 @@ $(document).ready(function() {
         let $pwd = $('#registerPassword').val();
         let $pwd_again = $('#registerPasswordAgain').val();
         let $go = true;
-        if($pwd !== $pwd_again){
+        if ($pwd !== $pwd_again) {
             swal("Registration failed!", "The two passwords do not match", "error");
             $go = false;
-        }else if($pwd === ""){
+        } else if ($pwd === "") {
             swal("Registration failed!", "Password empty", "error");
             $go = false;
-        }else if($pwd_again === ""){
+        } else if ($pwd_again === "") {
             swal("Registration failed!", "Password confirmation empty", "error");
             $go = false;
         }
@@ -19,7 +19,7 @@ $(document).ready(function() {
             email: $('#registerEmail').val(),
             pwd: CryptoJS.SHA256($pwd).toString(),
         };
-        if($go){
+        if ($go) {
             $.ajax({
                 url: '/registerAjax',
                 type: 'POST',
@@ -28,26 +28,26 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function (response) {
-                    if(response.message === 0) {
+                success: function(response) {
+                    if (response.message === 0) {
                         swal("Registration success!", "", "success");
                         $('#registerUsername').val('');
                         $('#registerEmail').val('');
                         $('#registerPassword').val('');
                         $('#registerPasswordAgain').val('');
-                    }else if(response.message === 1){
+                    } else if (response.message === 1) {
                         swal("Registration failed!", "Username empty.", "error");
-                    }else if(response.message === 2){
+                    } else if (response.message === 2) {
                         swal("Registration failed!", "Email empty.", "error");
-                    }else if(response.message === 6){
+                    } else if (response.message === 6) {
                         swal("Registration failed!", "The email format not correct.\nCorrect format: test@example.com", "error");
-                    }else if(response.message === 7){
+                    } else if (response.message === 7) {
                         swal("Registration failed!", "Username is alredy taken.", "error");
-                    }else if(response.message === 8){
+                    } else if (response.message === 8) {
                         swal("Registration failed!", "Email is alredy taken.", "error");
                     }
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });

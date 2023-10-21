@@ -1,50 +1,55 @@
 $(document).ready(function() {
     function eventEdit() {
-        $('.editEvent').click(function () {
+        $('.editEvent').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
                 type: 'GET',
                 url: '/editEvent',
                 dataType: 'json',
-                data: {eventId: eventId},
+                data: {
+                    eventId: eventId
+                },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function () {
-                    window.location.href="/event";
+                success: function() {
+                    window.location.href = "/event";
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
         });
-        $('.deleteEvent').click(function () {
+        $('.deleteEvent').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
                 type: 'GET',
                 url: '/deleteEvent',
                 dataType: 'json',
-                data: {eventId: eventId},
+                data: {
+                    eventId: eventId
+                },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function () {
+                success: function() {
                     myEvents();
                     swal("Event deleted", "", "success");
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
         });
     }
-    function myEvents(){
+
+    function myEvents() {
         $.ajax({
             type: 'GET',
             url: '/myEventsAjax',
-            success: function (events) {
+            success: function(events) {
                 $('#myEvents').html("");
-                if(events.userEvents.length === 0){
+                if (events.userEvents.length === 0) {
                     $('#myEvents').append(`
                         <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
                             <div class="card-body">
@@ -53,7 +58,7 @@ $(document).ready(function() {
                         </div>
                     `);
                 }
-                $.each(events.userEvents, function (index, event) {
+                $.each(events.userEvents, function(index, event) {
                     if (event.image === '') {
                         event.image = "login_form.jpg"
                     } else {
@@ -109,7 +114,7 @@ $(document).ready(function() {
                     </ul>
                 `);
                 eventEdit();
-                $('#createEvent').click(function(){
+                $('#createEvent').click(function() {
                     $.ajax({
                         type: 'GET',
                         url: '/delCookieEvent',
@@ -117,49 +122,51 @@ $(document).ready(function() {
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function () {
+                        success: function() {
                             window.location.href = '/event';
                         },
-                        error: function () {
+                        error: function() {
                             swal("Something went wrong", "Please try again later.", "error");
                         }
                     });
                 });
             },
-            error: function () {
+            error: function() {
                 swal("Something went wrong", "Please try again later.", "error");
             }
         });
     }
 
     function eventInterest() {
-        $('#interest').click(function () {
+        $('#interest').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
                 type: 'POST',
                 url: '/interestEvent',
                 dataType: 'json',
-                data: {eventId: eventId},
+                data: {
+                    eventId: eventId
+                },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function () {
+                success: function() {
                     interestEvents();
                 },
-                error: function () {
+                error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
                 }
             });
         });
     }
 
-    function interestEvents(){
+    function interestEvents() {
         $.ajax({
             type: 'GET',
             url: '/interestEventsAjax',
-            success: function (events) {
+            success: function(events) {
                 $('#interestEvents').html("");
-                if(events.interestedEvents.length === 0){
+                if (events.interestedEvents.length === 0) {
                     $('#interestEvents').append(`
                         <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
                             <div class="card-body">
@@ -168,7 +175,7 @@ $(document).ready(function() {
                         </div>
                     `);
                 }
-                $.each(events.interestedEvents, function (index, event) {
+                $.each(events.interestedEvents, function(index, event) {
                     if (event.image === '') {
                         event.image = "login_form.jpg"
                     } else {
@@ -215,11 +222,11 @@ $(document).ready(function() {
                     </ul>
                 `);
                 eventInterest();
-                $('#searchEvent').click(function(){
+                $('#searchEvent').click(function() {
                     window.location.href = '/dashboard';
                 });
             },
-            error: function () {
+            error: function() {
                 swal("Something went wrong", "Please try again later.", "error");
             }
         });
