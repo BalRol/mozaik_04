@@ -50,7 +50,7 @@ $(document).ready(function() {
         if ($('#visibilitySelect').val() === 'Limited') {
             $.ajax({
                 type: 'GET',
-                url: '/allUserAjax',
+                url: '/allUser',
                 dataType: 'json',
                 success: function(users) {
                     $('#limitedUsers').append(`
@@ -171,7 +171,7 @@ $(document).ready(function() {
         if ($go) {
             $.ajax({
                 type: 'POST',
-                url: '/createEvent',
+                url: '/event',
                 dataType: 'json',
                 data: formData,
                 processData: false,
@@ -198,7 +198,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/categoryAjax',
+        url: '/category',
         dataType: 'json',
         success: function(categories) {
             $.each(categories.category, function(index, category) {
@@ -216,7 +216,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: '/profileShowAjax',
+        url: '/user',
         success: function(user) {
             if (user.user.image === null) {
                 $('#profile-image').attr('src', "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp");

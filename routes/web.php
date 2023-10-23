@@ -42,35 +42,39 @@ Route::get('/event', function () {
     return view('event');
 });
 
-Route::match(['post', 'put'], '/registerAjax', [UserController::class, 'create']);
 
-Route::match(['post', 'put'], '/loginAjax', [UserController::class, 'index']);
+Route::match(['get'], '/login', [UserController::class, 'index']);
 
-Route::match(['get'], '/profileShowAjax', [UserController::class, 'show']);
+Route::match(['get'], '/logout', [UserController::class, 'logout']);
 
-Route::match(['post', 'put'], '/profileAjax', [UserController::class, 'update']);
+Route::match(['get'], '/user', [UserController::class, 'show']);
 
-Route::get('/logout', [UserController::class, 'logout']);
+Route::match(['post'], '/user', [UserController::class, 'create']);
 
-Route::get('/allUserAjax', [UserController::class, 'all']);
+Route::match(['put'], '/user', [UserController::class, 'update']);
 
-Route::get('/categoryAjax', [CategoryController::class, 'index']);
+Route::match(['get'], '/allUser', [UserController::class, 'all']);
 
-Route::match(['post', 'put'], '/createEvent', [EventController::class, 'create']);
 
-Route::get('/dashboardAjax', [EventController::class, 'index']);
 
-Route::match(['post', 'put'], '/interestEvent', [UserEventController::class, 'update']);
+Route::match(['get'], '/event', [EventController::class, 'index']);
 
-Route::get('/myEventsAjax', [EventController::class, 'myEvents']);
+Route::match(['post'], '/event', [EventController::class, 'create']);
 
-Route::get('/interestEventsAjax', [EventController::class, 'interestEvents']);
+Route::match(['put'], '/event', [UserEventController::class, 'update']);
 
-Route::get('/editEvent', [EventController::class, 'setEvent']);
+Route::match(['get'], '/myEventsAjax', [EventController::class, 'myEvents']);
 
-Route::get('/editEventAjax', [EventController::class, 'getEvent']);
+Route::match(['get'], '/interestEventsAjax', [EventController::class, 'interestEvents']);
 
-Route::get('/delCookieEvent', [EventController::class, 'delCookieEvent']);
+Route::match(['get'], '/editEvent', [EventController::class, 'setEvent']);
 
-Route::get('/deleteEvent', [EventController::class, 'delete']);
+Route::match(['get'], '/editEventAjax', [EventController::class, 'getEvent']);
+
+Route::match(['get'], '/delCookieEvent', [EventController::class, 'delCookieEvent']);
+
+Route::match(['delete'], '/deleteEvent', [EventController::class, 'delete']);
+
+
+Route::match(['get'], '/category', [CategoryController::class, 'index']);
 

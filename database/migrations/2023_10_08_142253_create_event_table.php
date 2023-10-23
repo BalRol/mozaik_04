@@ -25,6 +25,8 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
+
+        DB::statement('ALTER TABLE event MODIFY image LONGBLOB');
     }
 
     /**

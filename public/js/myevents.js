@@ -23,7 +23,7 @@ $(document).ready(function() {
         $('.deleteEvent').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
-                type: 'GET',
+                type: 'DELETE',
                 url: '/deleteEvent',
                 dataType: 'json',
                 data: {
@@ -61,7 +61,7 @@ $(document).ready(function() {
                 }
                 $.each(events.userEvents, function(index, event) {
                     if (event.image === '') {
-                        event.image = "login_form.jpg"
+                        event.image = "img/login_form.jpg"
                     } else {
                         event.image = "data:image/png;base64," + event.image;
                     }
@@ -142,8 +142,8 @@ $(document).ready(function() {
         $('#interest').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
-                type: 'POST',
-                url: '/interestEvent',
+                type: 'PUT',
+                url: '/event',
                 dataType: 'json',
                 data: {
                     eventId: eventId
@@ -178,7 +178,7 @@ $(document).ready(function() {
                 }
                 $.each(events.interestedEvents, function(index, event) {
                     if (event.image === '' || event.image === null) {
-                        event.image = "login_form.jpg"
+                        event.image = "img/login_form.jpg"
                     } else {
                         event.image = "data:image/png;base64," + event.image;
                     }

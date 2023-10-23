@@ -16,7 +16,7 @@ $(document).ready(function() {
         }
     })
     $.ajax({
-        url: '/profileShowAjax',
+        url: '/user',
         type: 'GET',
         dataType: 'json',
         headers: {
@@ -59,8 +59,8 @@ $(document).ready(function() {
         }
         if ($go) {
             $.ajax({
-                url: '/profileAjax',
-                type: 'POST',
+                url: '/user',
+                type: 'PUT',
                 data: formData,
                 processData: false,
                 contentType: false,

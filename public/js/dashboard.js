@@ -3,8 +3,8 @@ $(document).ready(function() {
         $('.interest').click(function () {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
-                type: 'POST',
-                url: '/interestEvent',
+                type: 'PUT',
+                url: '/event',
                 dataType: 'json',
                 data: {eventId: eventId},
                 headers: {
@@ -36,7 +36,7 @@ $(document).ready(function() {
     function eventsLoad() {
 
         $.ajax({
-            url: '/dashboardAjax',
+            url: '/event',
             type: 'GET',
             dataType: 'json',
             data: searchData,
@@ -47,7 +47,7 @@ $(document).ready(function() {
                 $('#dashboard_insert').html("");
                 $.each(events.event, function (index, event) {
                     if (event.image === '' || event.image === null) {
-                        event.image = "login_form.jpg"
+                        event.image = "img/login_form.jpg"
                     } else {
                         event.image = "data:image/png;base64," + event.image;
                     }
@@ -101,7 +101,7 @@ $(document).ready(function() {
     });
     $.ajax({
         type: 'GET',
-        url: '/categoryAjax',
+        url: '/category',
         dataType: 'json',
         success: function (categories) {
             $.each(categories.category, function(index, category) {

@@ -2,59 +2,95 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Cookie;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Event;
-use App\Models\UserEvent;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Cookie;
 
 class EventControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testCreateEvent()
     {
         $user = User::factory()->create();
-        $this->withCookie('user', $user->id);
-        // Elkészítjük a tesztadatokat
+        $this->withCookie('user',$user->id);
+
+        // Tesztadatok
         $data = [
-            'nameInput' => 'Sample Event',
-            'start_date' => '2023-12-01',
-            'end_date' => '2023-12-02',
-            'location' => 'Sample Location',
-            'type' => 'Music',
-            'visibility' => 'Public',
-            'description' => 'Sample Description',
-            'allowed_users' => '',
+            "nameInput" => "My Event",
+            "start_date" => "2023-12-01",
+            "end_date" => "2023-12-02",
+            "location" => "Test Location",
+            "type" => "Music",
+            "visibility" => "Public",
+            "description" => "Test Description",
         ];
 
-        // Manuálisan létrehozunk egy HTTP POST kérést
-        $response = $this->call('POST', '/createEvent', $data);
+        // Teszt HTTP kérés
+        $response = $this->post('/event', $data);
+        $response->assertStatus(200);
+        $response->assertJson(['message' => 10]);
 
-        // Ellenőrizzük, hogy a válasz státuszkódja 200 (OK)
-        $this->assertEquals(200, $response->status());
-
-        // Ellenőrizzük a válasz JSON tartalmát
-        $responseArray = json_decode($response->getContent(), true);
-        $this->assertEquals(['message' => 10], $responseArray);
-
-        // Az adatbázisban megkeressük az eseményt és ellenőrizzük, hogy létezik-e
-        $this->assertDatabaseHas('events', [
-            'name' => 'Sample Event',
+        $this->assertDatabaseHas('event', [
+            'name' => 'My Event',
             'start_date' => '2023-12-01',
             'end_date' => '2023-12-02',
-            'location' => 'Sample Location',
+            'location' => 'Test Location',
             'type' => 'Music',
-            'description' => 'Sample Description',
             'visibility' => 'Public',
-            'allowed_users' => '',
+            'description' => 'Test Description',
         ]);
 
-        // Az adatbázisban megkeressük az eseményhez tartozó UserEvent rekordokat és ellenőrizzük, hogy léteznek
         $this->assertDatabaseHas('userEvent', [
             'user_id' => $user->id,
         ]);
     }
 
-    // További tesztekhez további metódusokat készíthetsz, például a lekérdezési metódusok teszteléséhez.
+    public function testIndex()
+        {
+            $user = User::factory()->create();
+            $this->withCookie('user', $user->id);
+            $event = Event::factory()->create([
+                'user_id' => $user->id,
+                'name' => 'Test Name',
+                'start_date' => '2023-12-01',
+                'end_date' => '2023-12-02',
+                'location' => 'Test Location',
+                'image' => null,
+                'type' => 'Music',
+                'visibility' => 'Public',
+                'description' => 'Test Description',
+            ]);
+
+
+            $searchData = [
+                'search' => 'Test Event',
+            ];
+
+            $response = $this->get('/event', $searchData);
+            $response->assertStatus(200);
+            $response->assertJson([
+                'event' => [
+                    [
+                        'id' => $event->id,
+                        'user_id' => $user->id,
+                        'name' => 'Test Name',
+                        'start_date' => '2023-12-01',
+                        'end_date' => '2023-12-02',
+                        'location' => 'Test Location',
+                        'image' => null,
+                        'type' => 'Music',
+                        'description' => 'Test Description',
+                        'visibility' => 'Public',
+                        'username' => $user->username,
+                        'userImage' => null,
+                        'is_interested' => null,
+                    ],
+                ],
+            ]);
+        }
+
 }

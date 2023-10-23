@@ -6,8 +6,8 @@ $(document).ready(function() {
 
         };
         $.ajax({
-            url: '/loginAjax',
-            type: 'POST',
+            url: '/login',
+            type: 'GET',
             dataType: 'json',
             data: loginAddParams,
             headers: {

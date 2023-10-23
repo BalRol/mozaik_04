@@ -21,7 +21,7 @@ $(document).ready(function() {
         };
         if ($go) {
             $.ajax({
-                url: '/registerAjax',
+                url: '/user',
                 type: 'POST',
                 dataType: 'json',
                 data: registerAddParams,

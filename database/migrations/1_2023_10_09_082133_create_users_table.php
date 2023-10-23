@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->binary('image', 'long')->nullable();
         });
+        DB::statement('ALTER TABLE user MODIFY image LONGBLOB');
     }
 
     /**
