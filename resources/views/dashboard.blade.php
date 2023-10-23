@@ -141,11 +141,7 @@
 
 
             <div class="row d-flex justify-content-center align-items-center" id="dashboard_insert">
-                <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
-                    <div class="card-body">
-                        <h5 class="card-title">This is where events appear.</h5>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>

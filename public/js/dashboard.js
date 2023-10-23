@@ -27,8 +27,8 @@ $(document).ready(function() {
         searchData.start_date = $('#start_date').val();
         searchData.end_date = $('#end_date').val();
         searchData.location = $('#location').val();
-        searchData.visibility = $('#visibility').val();
-        searchData.category = $('#category').val();
+        searchData.visibility = $('#visibilitySelect').val();
+        searchData.category = $('#categorySelect').val();
         searchData.name = $('#name').val();
         searchData.description = $('#description').val();
         eventsLoad();
@@ -44,13 +44,7 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (events) {
-                $('#dashboard_insert').html(`<div class="row d-flex justify-content-center align-items-center" id="dashboard_insert">
-                    <div class="card my-3 p-0" style=" background-color: #111111; color:white; max-width: 80%; ">
-                        <div class="card-body">
-                            <h5 class="card-title">This is where events appear.</h5>
-                        </div>
-                    </div>
-                </div>`);
+                $('#dashboard_insert').html("");
                 $.each(events.event, function (index, event) {
                     if (event.image === '' || event.image === null) {
                         event.image = "img/login_form.jpg"
