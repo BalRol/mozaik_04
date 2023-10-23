@@ -56,7 +56,7 @@ if (!isset($_COOKIE['user'])) {
                 <div class="card mb-4" style="background-color: #111111; color:white;">
                     <div class="card-body d-flex flex-column align-items-center">
                         <div class="d-flex align-items-center">
-                            <img id="profile-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid m-5" style="width: 250px; height: 250px;">
+                            <img id="profile-image" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid m-5" style="width: 250px; height: 250px; cursor: pointer;" title="Click here to upload an image">
                             <input type="file" id="image-input" accept="image/*" style="display: none" name="profile_image">
                         </div>
                         <h5 class="my-3"><span class="name">Full Name</span></h5>

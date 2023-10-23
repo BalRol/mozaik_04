@@ -113,7 +113,7 @@
                         </div>
 
                     </div>
-                    <img id="event_image" class="card-img-top" src="img/login_form.jpg" alt="Card image cap" style="max-height: 350px; max-width: 100%; object-fit: cover;">
+                    <img id="event_image" class="card-img-top" src="img/login_form.jpg" alt="Card image" style="max-height: 350px; max-width: 100%; object-fit: cover; cursor: pointer;" title="Click here to upload an image">
                     <input type="file" id="event_input" accept="image/*" style="display: none" name="event_input">
                     <div class="card-body">
                         <div class="row">

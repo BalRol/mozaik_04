@@ -182,7 +182,7 @@ $(document).ready(function() {
                 success: function(message) {
                     if (message.message === 10) {
                         swal("Event created", "", "success");
-                        window.location.reload();
+                        window.location.href="/myevents";
                     } else if (message.message === 15) {
                         swal("Event updated", "", "success");
                         window.location.reload();

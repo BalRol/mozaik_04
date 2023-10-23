@@ -141,7 +141,7 @@
 
 
             <div class="row d-flex justify-content-center align-items-center" id="dashboard_insert">
-                
+
             </div>
         </div>
     </section>
