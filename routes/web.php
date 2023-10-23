@@ -17,7 +17,7 @@ use App\Http\Controllers\UserEventController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('login');
 });
 
@@ -26,9 +26,10 @@ Route::get('/register', function () {
 });
 
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('dashboard');
 });
+
 
 Route::get('/profile', function () {
     return view('profile');
@@ -43,7 +44,7 @@ Route::get('/event', function () {
 });
 
 
-Route::match(['get'], '/login', [UserController::class, 'index']);
+Route::match(['get'], '/_login', [UserController::class, 'index']);
 
 Route::match(['get'], '/logout', [UserController::class, 'logout']);
 

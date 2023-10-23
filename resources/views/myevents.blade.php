@@ -1,6 +1,6 @@
 <?php
     if (!isset($_COOKIE['user'])) {
-        header("Location: /");
+        header("Location: /login");
         exit;
     }
 ?>
@@ -29,7 +29,10 @@
         <div class="collapse navbar-collapse justify-content-start align-items-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link text-light" href="dashboard">Dashboard</a>
+                    <a class="nav-link text-light" href="/"><img alt="logo" class="img-fluid" src="img/bird.png" style="max-width: 50px;"></img> </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link text-light" href="/">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="myevents">My events</a>
@@ -39,7 +42,7 @@
                 </li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-end me-2" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <button id="logout" type="button" class="btn btn-danger" style="display: block;">Logout</button>

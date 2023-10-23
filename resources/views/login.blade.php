@@ -1,3 +1,9 @@
+<?php
+    if (isset($_COOKIE['user'])) {
+        header("Location: /");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,8 +32,8 @@
                                     <form>
                                         <div class="d-flex align-items-center mb-3 pb-1"> <img alt="logo" class="img-fluid" src="img/bird.png"></img> <span class="h1 fw-bold mb-0">Events</span> </div>
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
-                                        <div class="form-outline mb-4"> <input type="email" id="email" name="email" class="form-control form-control-lg" /> <label class="form-label" for="form2Example17">Email address</label> </div>
-                                        <div class="form-outline mb-4"> <input type="password" id="password" name="password" class="form-control form-control-lg" /> <label class="form-label" for="form2Example27">Password</label> </div>
+                                        <div class="form-outline mb-4"> <label class="form-label" for="email">Email address</label> <input type="email" id="email" name="email" class="form-control form-control-lg" /> </div>
+                                        <div class="form-outline mb-4"> <label class="form-label" for="password">Password</label><input type="password" id="password" name="password" class="form-control form-control-lg" />  </div>
                                         <div class="pt-1 mb-4"> <button class="btn btn-dark btn-lg btn-block" id="login" type="button">Login</button> </div>
                                         <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="register" style="color: #393f81;">Register here</a></p>
                                     </form>

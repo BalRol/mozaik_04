@@ -224,7 +224,7 @@ $(document).ready(function() {
                 `);
                 eventInterest();
                 $('#searchEvent').click(function() {
-                    window.location.href = '/dashboard';
+                    window.location.href = '/';
                 });
             },
             error: function() {

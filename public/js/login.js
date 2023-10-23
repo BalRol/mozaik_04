@@ -6,7 +6,7 @@ $(document).ready(function() {
 
         };
         $.ajax({
-            url: '/login',
+            url: '/_login',
             type: 'GET',
             dataType: 'json',
             data: loginAddParams,
@@ -16,7 +16,7 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.message === 10) {
                     swal("Login success", "", "success");
-                    window.location.href = "/dashboard";
+                    window.location.href = "/";
                 }
             },
             error: function() {
