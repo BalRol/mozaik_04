@@ -13,7 +13,7 @@ $(document).ready(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function() {
-                    window.location.href = "/event";
+                    window.location.href = "/editor";
                 },
                 error: function() {
                     swal("Something went wrong", "Please try again later.", "error");
@@ -124,7 +124,7 @@ $(document).ready(function() {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function() {
-                            window.location.href = '/event';
+                            window.location.href = '/editor';
                         },
                         error: function() {
                             swal("Something went wrong", "Please try again later.", "error");
@@ -142,8 +142,8 @@ $(document).ready(function() {
         $('#interest').click(function() {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
-                type: 'PUT',
-                url: '/event',
+                type: 'POST',
+                url: '/_event',
                 dataType: 'json',
                 data: {
                     eventId: eventId

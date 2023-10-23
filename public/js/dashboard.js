@@ -3,8 +3,8 @@ $(document).ready(function() {
         $('.interest').click(function () {
             var eventId = $(this).closest('div').find('#event_id').val();
             $.ajax({
-                type: 'PUT',
-                url: '/event',
+                type: 'POST',
+                url: '/_event',
                 dataType: 'json',
                 data: {eventId: eventId},
                 headers: {

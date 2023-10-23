@@ -59,8 +59,8 @@ $(document).ready(function() {
         }
         if ($go) {
             $.ajax({
-                url: '/user',
-                type: 'PUT',
+                url: '/_user',
+                type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,

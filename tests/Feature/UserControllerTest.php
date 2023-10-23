@@ -33,7 +33,7 @@ class UserControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $this->withCookie('user', $user->id);
-        $response = $this->put('/user', [
+        $response = $this->post('/_user', [
                  'name' => $user->username,
                  'email' => $user->email,
                  'oldPassword' => $user->password,

@@ -39,7 +39,7 @@ Route::get('/myevents', function () {
     return view('myevents');
 });
 
-Route::get('/event', function () {
+Route::get('/editor', function () {
     return view('event');
 });
 
@@ -52,7 +52,7 @@ Route::match(['get'], '/user', [UserController::class, 'show']);
 
 Route::match(['post'], '/user', [UserController::class, 'create']);
 
-Route::match(['put'], '/user', [UserController::class, 'update']);
+Route::match(['post'], '/_user', [UserController::class, 'update']);
 
 Route::match(['get'], '/allUser', [UserController::class, 'all']);
 
@@ -62,7 +62,7 @@ Route::match(['get'], '/event', [EventController::class, 'index']);
 
 Route::match(['post'], '/event', [EventController::class, 'create']);
 
-Route::match(['put'], '/event', [UserEventController::class, 'update']);
+Route::match(['post'], '/_event', [UserEventController::class, 'update']);
 
 Route::match(['get'], '/myEventsAjax', [EventController::class, 'myEvents']);
 
